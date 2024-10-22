@@ -11,8 +11,17 @@ import icon from "astro-icon";
 
 import mdx from "@astrojs/mdx";
 
+import devtoolBreakpoints from "astro-devtool-breakpoints";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://leo-bourbon.github.io",
-  integrations: [tailwind(), vue(), robotsTxt(), icon(), mdx()],
+  integrations: [
+    tailwind(),
+    vue(),
+    robotsTxt(),
+    icon(),
+    mdx(),
+    devtoolBreakpoints(),
+  ],
 });
