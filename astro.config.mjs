@@ -7,8 +7,10 @@ import vue from "@astrojs/vue";
 
 import robotsTxt from "astro-robots-txt";
 
+import icon from "astro-icon";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://leo-bourbon.github.io",
-  integrations: [tailwind(), vue(), robotsTxt()],
+  integrations: [tailwind(), vue(), robotsTxt(), icon()],
 });
