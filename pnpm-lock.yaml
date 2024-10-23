@@ -31,6 +31,9 @@ importers:
       astro:
         specifier: ^4.16.5
         version: 4.16.5(rollup@4.24.0)(typescript@5.6.3)
+      astro-compressor:
+        specifier: ^0.4.1
+        version: 0.4.1
       astro-devtool-breakpoints:
         specifier: ^0.3.0
         version: 0.3.0(astro@4.16.5(rollup@4.24.0)(typescript@5.6.3))
@@ -955,6 +958,9 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astro-compressor@0.4.1:
+    resolution: {integrity: sha512-IAgYAlxYRMolaptsFB9quH7RxX4eUeC4UfULCPhT+ILcg7m1kbaxuyUKqGg9Hh+KZ+FNPPDAz7DqUfl+HDWhQg==}
 
   astro-devtool-breakpoints@0.3.0:
     resolution: {integrity: sha512-Mp2T1xusL6R8IUJ0La8UtEjoQgYx0m2w8EFu9SdqqhR8ggkubrT+XRB92tFgvrDtuMMiXosO9oD/ZXrsGQtVSQ==}
@@ -3982,6 +3988,8 @@ snapshots:
   array-iterate@2.0.1: {}
 
   astring@1.9.0: {}
+
+  astro-compressor@0.4.1: {}
 
   astro-devtool-breakpoints@0.3.0(astro@4.16.5(rollup@4.24.0)(typescript@5.6.3)):
     dependencies:

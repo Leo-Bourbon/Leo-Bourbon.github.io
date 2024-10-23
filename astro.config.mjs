@@ -13,6 +13,8 @@ import mdx from "@astrojs/mdx";
 
 import devtoolBreakpoints from "astro-devtool-breakpoints";
 
+import compressor from "astro-compressor";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://leo-bourbon.github.io",
@@ -23,5 +25,6 @@ export default defineConfig({
     icon(),
     mdx(),
     devtoolBreakpoints(),
+    compressor(),
   ],
 });
