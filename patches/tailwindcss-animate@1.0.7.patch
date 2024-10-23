@@ -1,0 +1,43 @@
+diff --git a/README.md b/README.md
+index c462f3adebc2332fb702120d1d9c427ee25a9ef5..3e1b19b0b286d6a58ecd24166b50d0f2ded0fc91 100644
+--- a/README.md
++++ b/README.md
+@@ -10,7 +10,7 @@
+ <div class="animate-out slide-out-to-top slide-out-to-left">...</div>
+ 
+ <!-- Control animation duration -->
+-<div class="... duration-300">...</div>
++<div class="... animation-duration-300">...</div>
+ 
+ <!-- Control animation delay -->
+ <div class="... delay-150">...</div>
+@@ -93,12 +93,12 @@ Learn more in the [animation direction](/docs/animation-direction.md) documentat
+ 
+ #### Changing animation duration
+ 
+-Use the `duration-{amount}` utilities to control an element’s `animation-duration`.
++Use the `animation-duration-{amount}` utilities to control an element’s `animation-duration`.
+ 
+ ```html
+-<button class="animate-bounce duration-150 ...">Button A</button>
+-<button class="animate-bounce duration-300 ...">Button B</button>
+-<button class="animate-bounce duration-700 ...">Button C</button>
++<button class="animate-bounce animation-duration-150 ...">Button A</button>
++<button class="animate-bounce animation-duration-300 ...">Button B</button>
++<button class="animate-bounce animation-duration-700 ...">Button C</button>
+ ```
+ 
+ Learn more in the [animation duration](/docs/animation-duration.md) documentation.
+diff --git a/index.js b/index.js
+index 1021698ad48bce3465905a6ee3b779ea43d6538f..d5c2ebd2b956f05c55c17020ad3c127e312cf51a 100644
+--- a/index.js
++++ b/index.js
+@@ -86,7 +86,7 @@ module.exports = plugin(
+ 		)
+ 
+ 		matchUtilities(
+-			{ duration: (value) => ({ animationDuration: value }) },
++			{ "animation-duration": (value) => ({ animationDuration: value }) },
+ 			{ values: filterDefault(theme("animationDuration")) },
+ 		)
+ 
