@@ -34,6 +34,9 @@ importers:
       astro-devtool-breakpoints:
         specifier: ^0.3.0
         version: 0.3.0(astro@4.16.5(rollup@4.24.0)(typescript@5.6.3))
+      astro-emoji:
+        specifier: ^1.2.0
+        version: 1.2.0
       astro-font:
         specifier: ^0.1.81
         version: 0.1.81
@@ -957,6 +960,9 @@ packages:
     resolution: {integrity: sha512-Mp2T1xusL6R8IUJ0La8UtEjoQgYx0m2w8EFu9SdqqhR8ggkubrT+XRB92tFgvrDtuMMiXosO9oD/ZXrsGQtVSQ==}
     peerDependencies:
       astro: ^4.0.0
+
+  astro-emoji@1.2.0:
+    resolution: {integrity: sha512-VSOWEuIJEUGX34w591LlwVWupr6Y+oFa9/HG/L3t1VdQRqK8j9c1578m67auQXMgC1FMF8S5poYF61CPawlrLw==}
 
   astro-font@0.1.81:
     resolution: {integrity: sha512-rbrv/+ZSYdgyjBlhkAqfCjMxqqo6iEwnSo/rAdDt/POILsF0ChxMFhefIIzKEukrRGtVjEj1lrLRYk+AdV9scQ==}
@@ -3980,6 +3986,8 @@ snapshots:
   astro-devtool-breakpoints@0.3.0(astro@4.16.5(rollup@4.24.0)(typescript@5.6.3)):
     dependencies:
       astro: 4.16.5(rollup@4.24.0)(typescript@5.6.3)
+
+  astro-emoji@1.2.0: {}
 
   astro-font@0.1.81: {}
 
