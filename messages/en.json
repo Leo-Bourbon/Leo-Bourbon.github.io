@@ -1,0 +1,6 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "error_404": "Page not found, sorry !",
+    "home_button": "Return home",
+    "hello": "Hello {name}!"
+}

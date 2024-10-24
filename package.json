@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -15,6 +16,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
     "@astrojs/vue": "^4.5.2",
+    "@inlang/paraglide-astro": "^0.2.2",
     "astro": "^4.16.5",
     "astro-compressor": "^0.4.1",
     "astro-devtool-breakpoints": "^0.3.0",
@@ -29,6 +31,7 @@
   "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.1",
+    "@inlang/paraglide-js": "1.11.3",
     "@tailwindcss/typography": "^0.5.15",
     "daisyui": "^4.12.13",
     "tailwindcss-animate": "^1.0.7"
