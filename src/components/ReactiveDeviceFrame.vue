@@ -31,13 +31,12 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 <style scoped>
 .phone-content {
   border-radius: var(--rounded-box, 1rem);
-    --tw-bg-opacity: 1;
-    background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-    --tw-text-opacity: 1;
-    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-      0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    padding-top: 25px;
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b3, oklch(var(--b3) / var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc, oklch(var(--bc) / var(--tw-text-opacity)));
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding-top: 25px;
 }
 
 .mockup-window::before {
@@ -45,6 +44,6 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 }
 
 .animation-enter {
-  /* @apply motion-safe:animate-in motion-safe:slide-in-from-bottom motion-safe:fade-in !animation-duration-[1s]; */
+  @apply motion-safe:animate-in motion-safe:slide-in-from-bottom motion-safe:fade-in !animation-duration-[1s];
 }
 </style>
