@@ -45,6 +45,6 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 }
 
 .animation-enter {
-  @apply motion-safe:animate-in motion-safe:slide-in-from-bottom motion-safe:fade-in !animation-duration-[1s];
+  /* @apply motion-safe:animate-in motion-safe:slide-in-from-bottom motion-safe:fade-in !animation-duration-[1s]; */
 }
 </style>
