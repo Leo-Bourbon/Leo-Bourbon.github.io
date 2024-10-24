@@ -14,7 +14,7 @@ import compressor from "astro-compressor";
 export default defineConfig({
   site: "https://leo-bourbon.github.io",
   i18n: {
-    locales: ["en", { codes: ["fr", "fr-FR"], path: "french" }],
+    locales: ["fr", "en"],
     defaultLocale: "en",
   },
   integrations: [
