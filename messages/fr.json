@@ -1,0 +1,6 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "error_404": "Page indisponible, oups !",
+    "home_button": "Retour à l'accueil",
+    "hello": "Bonjour {name}!"
+}
