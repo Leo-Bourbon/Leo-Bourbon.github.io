@@ -2,17 +2,12 @@
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import * as m from "../../paraglide/messages.js";
 
-import HelloWorld from "../../components/HelloWorld.vue";
-import { Icon } from "astro-icon/components";
-import Emoji from "astro-emoji";
-
 import { availableLanguageTags } from "../../paraglide/runtime";
 export function getStaticPaths() {
   return availableLanguageTags.map((lang) => ({ params: { lang } }));
 }
 ---
 
-<DefaultLayout title={m.homepage_title()} description={m.homepage_desc()} >
-<p>Hi.</p>
+<DefaultLayout title={m.homepage_title()} description={m.homepage_desc()}>
+  <p>Hi.</p>
 </DefaultLayout>
-
