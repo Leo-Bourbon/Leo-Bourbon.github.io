@@ -17,6 +17,7 @@
     "@astrojs/tailwind": "^5.1.2",
     "@astrojs/vue": "^4.5.2",
     "@inlang/paraglide-astro": "^0.2.2",
+    "@vueuse/core": "^11.1.0",
     "astro": "^4.16.5",
     "astro-compressor": "^0.4.1",
     "astro-devtool-breakpoints": "^0.3.0",
