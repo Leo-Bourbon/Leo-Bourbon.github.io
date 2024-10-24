@@ -1,9 +1,6 @@
 ---
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages.js";
-
-import HelloWorld from "../components/HelloWorld.vue";
-import { Icon } from "astro-icon/components";
 import Emoji from "astro-emoji";
 ---
 
@@ -17,13 +14,11 @@ import Emoji from "astro-emoji";
     <title>Astro</title>
   </head>
   <body>
-    <h1 class="text-red-600">Astro</h1>
-    <HelloWorld />
-    <Icon name="heroicons:check" />
-    <button class="btn">DaisyUI button</button>
-    <div class="animate-in fade-in zoom-in animation-duration-[1s]">
-      Fade in, zoom in ! <Emoji symbol="🚗" label="car" />
-    </div>
-    <p>{m.hello({ name: "User" })}</p>
+    <h1 class="text-red-600">404</h1>
+    <p>{m.error_404()}</p>
+    <a href="/" class="btn">
+        <Emoji symbol="↩️" label="return arrow" />
+        {m.home_button()}
+    </a>
   </body>
 </html>
