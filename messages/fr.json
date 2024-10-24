@@ -1,6 +1,7 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format",
-    "error_404": "Page indisponible, oups !",
-    "home_button": "Retour à l'accueil",
-    "hello": "Bonjour {name}!"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "error_404": "Page indisponible, oups !",
+  "home_button": "Retour à l'accueil",
+  "homepage_title": "Portfolio de Léo",
+  "homepage_desc": "Page d'accueil du portfolio de Léo Bourbon."
 }

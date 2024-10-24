@@ -1,6 +1,7 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format",
-    "error_404": "Page not found, sorry !",
-    "home_button": "Return home",
-    "hello": "Hello {name}!"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "error_404": "Page not found, sorry !",
+  "home_button": "Return home",
+  "homepage_title": "Léo's Portfolio",
+  "homepage_desc": "Léo Bourbon's portfolio homepage."
 }
