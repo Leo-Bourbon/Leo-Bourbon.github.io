@@ -1,0 +1,104 @@
+---
+const props = Astro.props;
+---
+
+<svg
+  class="linkedin-icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="2em"
+  height="2em"
+  viewBox="0 0 24 24"
+  {...props}
+>
+  <circle cx="4" cy="4" r="2" fill="currentColor" fill-opacity="0"></circle>
+  <g
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="4"
+  >
+    <path
+      class="linkedin-i"
+      stroke-dasharray="12"
+      stroke-dashoffset="12"
+      d="M4 10v10"></path>
+    <path
+      class="linkedin-n1"
+      stroke-dasharray="12"
+      stroke-dashoffset="12"
+      d="M10 10v10"></path>
+    <path
+      class="linkedin-n2"
+      stroke-dasharray="24"
+      stroke-dashoffset="24"
+      d="M10 15c0 -2.76 2.24 -5 5 -5c2.76 0 5 2.24 5 5v5"></path>
+  </g>
+</svg>
+
+<style>
+  svg.linkedin-icon {
+    --linkedin-icon-start-delay: 100ms;
+  }
+
+  /* Circle */
+  svg.linkedin-icon > circle {
+    animation: linkedin-circle-enter-in 150ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--linkedin-icon-start-delay)
+    );
+  }
+
+  @keyframes linkedin-circle-enter-in {
+    from {
+      fill-opacity: 0;
+    }
+
+    to {
+      fill-opacity: 1;
+    }
+  }
+
+  /* I */
+  svg.linkedin-icon > g > path.linkedin-i {
+    animation: linkedin-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--linkedin-icon-start-delay) + 150ms
+    );
+  }
+
+  @keyframes linkedin-enter-in {
+    from {
+      stroke-dashoffset: 12;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* First stroke of n */
+  svg.linkedin-icon > g > path.linkedin-n1 {
+    animation: linkedin-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--linkedin-icon-start-delay) + 450ms
+    );
+  }
+
+  /* Second stroke of n */
+  svg.linkedin-icon > g > path.linkedin-n2 {
+    animation: linkedin-n2-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--linkedin-icon-start-delay) + 650ms
+    );
+  }
+  @keyframes linkedin-n2-enter-in {
+    from {
+      stroke-dashoffset: 24;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
