@@ -696,7 +696,20 @@ function stripLanguageTag(id: string) {
                 <Fragment slot="actions">
                   {entry.data.badges.map(
                     (badge: { type: string; label: string }) => (
-                      <div class={`badge badge-${badge.type}`}>
+                      <div
+                        class:list={[
+                          "badge",
+                          badge.type == "primary"
+                            ? "badge-primary"
+                            : badge.type == "secondary"
+                              ? "badge-secondary"
+                              : badge.type == "accent"
+                                ? "badge-accent"
+                                : badge.type == "ghost"
+                                  ? "badge-ghost"
+                                  : "",
+                        ]}
+                      >
                         {badge.label}
                       </div>
                     ),
@@ -756,13 +769,6 @@ function stripLanguageTag(id: string) {
         #main {
           @apply mb-24;
         }
-        /* #scroll-hint {
-          position: sticky;
-          bottom: 32px;
-
-          justify-content: end;
-          padding-right: 16px;
-        } */
       }
     }
 
@@ -786,13 +792,7 @@ function stripLanguageTag(id: string) {
         justify-content: center;
         align-items: stretch;
       }
-
-      #scroll-hint {
-        /* display: none; */
-      }
-
       #tech-stack-icons :global(.tech-icon) {
-        /* outline: 1px black solid; */
         flex-basis: 33%;
       }
     }
@@ -804,7 +804,6 @@ function stripLanguageTag(id: string) {
       }
 
       #main {
-        /* max-width: 640px; */
         @apply max-w-xl;
 
         display: flex;
@@ -818,12 +817,7 @@ function stripLanguageTag(id: string) {
         align-items: stretch;
       }
 
-      #scroll-hint {
-        /* display: none; */
-      }
-
       #tech-stack-icons :global(.tech-icon) {
-        /* outline: 1px black solid; */
         flex-basis: 25%;
       }
     }
@@ -835,7 +829,6 @@ function stripLanguageTag(id: string) {
       }
 
       #main {
-        /* max-width: 640px; */
         @apply max-w-2xl;
 
         display: flex;
@@ -858,7 +851,6 @@ function stripLanguageTag(id: string) {
       }
 
       #tech-stack-icons :global(.tech-icon) {
-        /* outline: 1px black solid; */
         flex-basis: 25%;
       }
     }
@@ -1013,137 +1005,6 @@ function stripLanguageTag(id: string) {
 
     [data-tooltip]:hover:after {
       scale: 100%;
-    }
-  </style>
-
-  <!-- Modal dialog -->
-  <style>
-    /*   Open state of the dialog  */
-    dialog[open] {
-      opacity: 1;
-      /* transform: scaleY(1); */
-      transform: scale(1);
-    }
-
-    /*   Closed state of the dialog   */
-    dialog {
-      opacity: 0;
-      /* transform: scaleY(0); */
-      transform: scale(0);
-      transition:
-        opacity 0.2s ease-out,
-        transform 0.2s ease-out,
-        overlay 0.2s ease-out allow-discrete,
-        display 0.2s ease-out allow-discrete;
-      /* Equivalent to
-  transition: all 0.7s allow-discrete; */
-    }
-
-    /*   Before-open state  */
-    /* Needs to be after the previous dialog[open] rule to take effect,
-    as the specificity is the same */
-    @starting-style {
-      dialog[open] {
-        opacity: 0;
-        /* transform: scaleY(0); */
-        transform: scale(0);
-      }
-    }
-
-    /* Transition the :backdrop when the dialog modal is promoted to the top layer */
-    dialog::backdrop {
-      background-color: rgb(0 0 0 / 0%);
-      transition:
-        display 0.1s allow-discrete,
-        overlay 0.1s allow-discrete,
-        background-color 0.1s;
-      /* Equivalent to
-  transition: all 0.7s allow-discrete; */
-    }
-
-    dialog[open]::backdrop {
-      background-color: rgb(0 0 0 / 25%);
-    }
-
-    /* This starting-style rule cannot be nested inside the above selector
-because the nesting selector cannot represent pseudo-elements. */
-
-    @starting-style {
-      dialog[open]::backdrop {
-        background-color: rgb(0 0 0 / 0%);
-      }
-    }
-  </style>
-
-  <!-- Tabs -->
-  <style>
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 auto 20px;
-      border-radius: 10px 10px 0 0;
-    }
-
-    .radiotab {
-      position: absolute;
-      opacity: 0;
-    }
-
-    .label {
-      width: 100%;
-      padding: 22px 20px;
-      background: #e5e5e5;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 23px;
-      color: #7f7f7f;
-      transition:
-        background 0.3s,
-        color 0.3s;
-      border: none;
-      border-radius: 0;
-      text-align: center;
-    }
-
-    .label:hover {
-      background: #d8d8d8;
-    }
-
-    .label:active {
-      background: #ccc;
-    }
-
-    .radiotab:checked + .label {
-      background: #fff;
-      color: #000;
-      border-top: solid 2px #000;
-      border-left: solid 2px #000;
-      border-right: solid 2px #000;
-      border-bottom: none;
-    }
-
-    .panel {
-      display: none;
-      padding: 20px 30px 30px;
-      background: #fff;
-      width: 100%;
-      border-left: solid 2px #000;
-      border-bottom: solid 2px #000;
-      border-right: solid 2px #000;
-    }
-
-    .radiotab:checked + .label + .panel {
-      display: block;
-    }
-
-    .panel {
-      order: 99;
-    }
-
-    .label {
-      width: 33.33%;
-      border-radius: 10px 10px 0 0;
-      border-bottom: solid 2px #000;
     }
   </style>
 </PortfolioLayout>
