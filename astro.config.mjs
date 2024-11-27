@@ -31,4 +31,7 @@ export default defineConfig({
     }),
     compressor(),
   ],
+  experimental: {
+    contentIntellisense: true,
+  },
 });

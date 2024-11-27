@@ -1,13 +1,1241 @@
 ---
-import DefaultLayout from "../../layouts/DefaultLayout.astro";
-import * as m from "../../paraglide/messages.js";
+import "@styles/variables.css";
 
-import { availableLanguageTags } from "../../paraglide/runtime";
+import LangSwitcher from "@components/LangSwitcher.astro";
+import PhoneFrame from "@components/PhoneFrame.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import SocialLinks from "@components/SocialLinks.astro";
+import TechIcon from "@components/TechIcon.astro";
+import ThemeSwitcher from "@components/ThemeSwitcher.astro";
+import WorkAndEducationTabs from "@components/WorkAndEducationTabs.vue";
+import PortfolioLayout from "@layouts/PortfolioLayout.astro";
+import { Icon } from "astro-icon/components";
+
+import * as m from "@paraglide/messages.js";
+import { availableLanguageTags, languageTag } from "@paraglide/runtime";
 export function getStaticPaths() {
   return availableLanguageTags.map((lang) => ({ params: { lang } }));
 }
+
+import { getImage, Image } from "astro:assets";
+import profilePicture from "src/assets/images/profile-picture-square-v2.jpg";
+import captairThumbnail from "src/assets/images/projects/captair/CAPTAIR_public_map.png";
+import iassistantThumbnail from "src/assets/images/projects/iassistant/IAssistant_home.jpg";
+import portfolioThumbnail from "src/assets/images/projects/portfolio/portfolio-home.png";
+
+const profilePictureResized = await getImage({
+  src: profilePicture,
+  quality: "high",
+  format: "webp",
+  width: 144,
+  height: 144,
+  // inferSize: true
+});
+console.log(profilePictureResized.src);
+
+// Get featured projects
+import { getCollection } from "astro:content";
+const featuredProjectEntries = await getCollection(
+  "projects",
+  ({ id, data }) => {
+    return id.startsWith(`${languageTag()}/`) && data.featured;
+  },
+);
+function stripLanguageTag(id: string) {
+  return id.replace(`${languageTag()}/`, "");
+}
 ---
 
-<DefaultLayout title={m.homepage_title()} description={m.homepage_desc()}>
-  <p>Hi.</p>
-</DefaultLayout>
+<PortfolioLayout title={m.homepage_title()} description={m.homepage_desc()}>
+  <Fragment slot="head">
+    <link rel="preload" href={profilePictureResized.src} as="image" />
+    <!-- <link rel="preload" href={iassistantThumbnail.src} as="image" />
+    <link rel="preload" href={captairThumbnail.src} as="image" /> -->
+  </Fragment>
+  <div id="top" class="absolute left-0 right-0 top-0 h-0"></div>
+  <!-- Sticky top header -->
+  <header id="header" class="sticky top-1 z-20 h-16">
+    <div
+      class="navbar mx-auto max-w-sm items-stretch justify-evenly rounded-full bg-base-100"
+    >
+      <a class="link" href="#top">{m.home_button()}</a>
+      <a class="link" href="#tech-stack-marker">{m.tech_button()}</a>
+      <a class="link" href=`/${languageTag()}/projects`>{m.projects_button()}</a
+      >
+      <!-- Theme switcher -->
+      <ThemeSwitcher />
+      <!-- Lang switcher -->
+      <LangSwitcher />
+    </div>
+  </header>
+  <main id="main" class="p-2">
+    <!-- Phone -->
+    <article
+      id="phone-frame-wrapper"
+      class="relative grid grid-cols-1 grid-rows-1"
+    >
+      <header
+        class="left-0 right-0 top-2 z-20 hidden w-[576px] xl:sticky xl:block"
+      >
+        <div
+          class="navbar mx-auto max-w-sm items-stretch justify-evenly rounded-full bg-base-100"
+        >
+          <a class="link" href="#top">{m.home_button()}</a>
+          <a class="link" href="#tech-stack-marker">{m.tech_button()}</a>
+          <a class="link" href=`/${languageTag()}/projects`
+            >{m.projects_button()}</a
+          >
+          <!-- Theme switcher -->
+          <ThemeSwitcher idNumber="2" />
+          <!-- Lang switcher -->
+          <LangSwitcher />
+        </div>
+      </header>
+      <PhoneFrame id="phone-frame" class="justify-self-start">
+        <section
+          class="prose h-full w-full max-w-full bg-base-300 p-4 text-base-content"
+        >
+          <!-- Avatar  -->
+          <div class="mb-2 flex flex-col items-center justify-center">
+            <div class="avatar">
+              <div
+                class="h-36 w-36 rounded ring ring-primary ring-offset-2 ring-offset-base-100"
+              >
+                <!-- <Image
+                  class="not-prose"
+                  alt="Profile"
+                  src={profilePicture}
+                  width="144"
+                  height="144"
+                  quality="high"
+                  decoding="sync"
+                  loading="eager"
+                /> -->
+                <Image
+                  class="not-prose"
+                  alt="Profile"
+                  src={profilePictureResized.src}
+                  width={profilePictureResized.attributes.width}
+                  height={profilePictureResized.attributes.height}
+                  decoding="sync"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Name -->
+          <h1 class="mb-0 text-center text-base-content">Léo Bourbon</h1>
+          <!-- Occupation -->
+          <h2 class="mb-1 mt-0 text-center">
+            <span class={languageTag() === "en" ? "" : "text-primary"}
+              >{m.occupation_first()}
+            </span>
+            <span class={languageTag() === "en" ? "text-primary" : ""}
+              >{m.occupation_second()}</span
+            >.
+          </h2>
+          <!-- Location and age -->
+          <h3 class="text-center text-sm">
+            📍 Grenoble/Annecy, France | 📅 {m.age_label()}
+          </h3>
+          <!-- Links menu -->
+          <SocialLinks />
+          <!-- Chat messages -->
+          <section class="font-medium">
+            <div class="chat chat-start">
+              <div
+                id="first-msg"
+                class="msg chat-bubble overflow-x-hidden bg-base-200 text-justify text-base-content"
+              >
+                <!-- Scrolling marquee -->
+                <!-- <section class="b-section">
+                  <div class="b-section-marquee-box">
+                    <span class="marquee-text w-full px-0">
+                      <div
+                        class="inline-flex flex-grow flex-row justify-between text-xs"
+                      >
+                        <span>Software</span>
+                        <span>•</span>
+                        <span>Web</span>
+                        <span>•</span>
+                        <span>Embedded</span>
+                        <span>•</span>
+                        <span>Game</span>
+                        <span class="pr-3">•</span>
+                      </div>
+                    </span>
+                    <span class="marquee-text w-full px-0">
+                      <div
+                        class="inline-flex flex-grow flex-row justify-between text-xs"
+                      >
+                        <span>Software</span>
+                        <span>•</span>
+                        <span>Web</span>
+                        <span>•</span>
+                        <span>Embedded</span>
+                        <span>•</span>
+                        <span>Game</span>
+                        <span class="pr-3">•</span>
+                      </div>
+                    </span>
+                  </div>
+                </section> -->
+
+                <s class="text-xs">{m.software()},</s>
+                <s class="text-xs">{m.web()},</s>
+                <s class="text-xs">{m.embedded()},</s>
+                <s class="text-xs">{m.game()},</s>
+                <br />
+                <Fragment set:html={m.first_msg()} />
+              </div>
+            </div>
+            <div class="chat chat-start">
+              <div
+                id="second-msg"
+                class="msg chat-bubble bg-base-200 text-justify text-base-content"
+              >
+                {m.second_msg()}
+              </div>
+            </div>
+            <div class="chat chat-start">
+              <div
+                id="third-msg"
+                class="msg chat-bubble bg-base-200 text-justify text-base-content"
+              >
+                {m.third_msg()}
+              </div>
+            </div>
+          </section>
+        </section>
+      </PhoneFrame>
+      <!-- Scroll hint for small-ish PC (lg screens) -->
+      <div id="mouse-scroll-hint" class="absolute left-[42em] top-1/2 hidden">
+        <Icon
+          class="motion-safe:animate-bounce motion-safe:animation-duration-[1.5s] motion-safe:repeat-infinite"
+          name="hugeicons--mouse-scroll-02"
+          width="3rem"
+          height="3rem"
+        />
+      </div>
+    </article>
+    <!-- Scroll hint for mobile -->
+    <div id="scroll-hint" class="my-0 flex h-12 flex-row justify-center">
+      <Icon
+        class="motion-safe:animate-bounce motion-safe:animation-duration-[1.5s] motion-safe:repeat-infinite"
+        name="material-symbols--swipe-up"
+        width="3rem"
+        height="3rem"
+      />
+    </div>
+    <!-- Technologies -->
+    <section id="tech-stack" class="prose relative mb-12 max-w-none xl:mb-4">
+      <!-- Scroll marker -->
+      <div id="tech-stack-marker" class="absolute -top-20 left-0 right-0 h-0">
+      </div>
+      <!-- Title -->
+      <h2 class="mb-4 mt-0 rounded-box bg-base-300 p-2 text-center">
+        {m.tech_title()}
+      </h2>
+      <!-- Tech icon grid -->
+      <div class="mb-0 rounded-box bg-base-200 p-2">
+        <ul
+          id="tech-stack-icons"
+          class="m-0 flex w-full list-none flex-row flex-wrap justify-evenly gap-y-2 rounded-box bg-base-100 px-0 py-2"
+        >
+          <TechIcon
+            icon_name="devicon--nuxtjs"
+            tech_href="https://nuxt.com/"
+            indicator="primary"
+          >
+            <span slot="icon-label">Nuxt</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--astro"
+            tech_href="https://astro.build"
+            indicator="primary"
+          >
+            <span slot="icon-label">Astro</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--tailwindcss"
+            tech_href="https://tailwindcss.com/"
+            indicator="primary"
+          >
+            <span slot="icon-label">Tailwind</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--typescript"
+            tech_href="https://www.typescriptlang.org/"
+            indicator="primary"
+          >
+            <span slot="icon-label">Typescript</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--python"
+            tech_href="https://www.python.org/"
+            indicator="secondary"
+          >
+            <span slot="icon-label">Python</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--bash"
+            tech_href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)"
+            indicator="secondary"
+          >
+            <span slot="icon-label">Bash</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="simple-icons--ollama"
+            tech_href="https://ollama.com/"
+            indicator="secondary"
+          >
+            <span slot="icon-label">Ollama</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--docker"
+            tech_href="https://www.docker.com/"
+            indicator="accent"
+          >
+            <span slot="icon-label">Docker</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--githubactions"
+            tech_href="https://github.com/features/actions"
+            indicator="accent"
+          >
+            <span class="w-full text-center leading-4" slot="icon-label"
+              >Github actions</span
+            >
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--postgresql"
+            tech_href="https://www.postgresql.org/"
+            indicator="ghost"
+          >
+            <span slot="icon-label">PostgreSQL</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="icons8-power-bi-2021"
+            tech_href="https://www.microsoft.com/fr-fr/power-platform/products/power-bi"
+            indicator="ghost"
+          >
+            <span slot="icon-label">PowerBI</span>
+          </TechIcon>
+          <TechIcon
+            icon_name="devicon--godot"
+            tech_href="https://godotengine.org/"
+            indicator="ghost"
+          >
+            <span slot="icon-label">Godot</span>
+          </TechIcon>
+        </ul>
+        <!-- Indicator legend -->
+        <div class="flex flex-row flex-nowrap justify-evenly gap-x-2 pt-2">
+          <div class="badge badge-primary">Web</div>
+          <div class="badge badge-secondary">{m.software_tech()}</div>
+          <div class="badge badge-accent">DevSecOps</div>
+          <div class="badge badge-ghost">{m.other_tech()}</div>
+        </div>
+      </div>
+    </section>
+    <!-- Work / education -->
+    <section id="work-and-edu" class="mb-12 xl:mr-2">
+      <WorkAndEducationTabs client:load>
+        <!-- Work timeline -->
+        <ul
+          class="timeline timeline-vertical timeline-compact timeline-snap-icon text-pretty"
+          slot="work-content"
+        >
+          <!-- Atmo -->
+          <li>
+            <!-- Icon -->
+            <div class="timeline-middle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </div>
+            <!-- Text -->
+            <div class="timeline-end max-w-none">
+              <time class="font-mono text-xs italic">09/2021 - 08/2024</time>
+              <h3 class="my-0 text-base font-semibold leading-none">
+                Atmo Auvergne-Rhône-Alpes
+              </h3>
+              <p class="mb-1 text-sm">{m.atmo_job_title()}</p>
+              <ul
+                class="prose ml-4 mt-0 max-w-full list-outside list-disc text-sm"
+              >
+                <li>
+                  <span class="badge badge-accent badge-sm">Git</span>
+                  <span class="badge badge-accent badge-sm">CI/CD</span>
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.agile_badge()}</span
+                  >
+                  {m.atmo_second_mission_project_5()}
+                </li>
+                <!-- AI work -->
+                <li>
+                  <span class="font-semibold">
+                    {m.atmo_first_mission()}
+                  </span>
+                  <ul class="ml-8 list-outside list-disc">
+                    <li>
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.management_badge()}</span
+                      >
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.consulting_badge()}</span
+                      >
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.public_speaking_badge()}</span
+                      >
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.frugal_ai_badge()}</span
+                      >
+                      {m.atmo_first_mission_project_1()}
+                    </li>
+                    <li>
+                      <span class="badge badge-primary badge-sm">Nuxt</span>
+                      <span class="badge badge-primary badge-sm"
+                        >Typescript</span
+                      >
+                      <span class="badge badge-secondary badge-sm">Ollama</span>
+                      <span class="badge badge-accent badge-sm">Docker</span>
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.impact_analysis_badge()}</span
+                      >
+                      <span class="badge badge-ghost badge-sm"
+                        >{m.frugal_ai_badge()}</span
+                      >
+
+                      {m.atmo_first_mission_project_2()}
+                      <a href={`${languageTag()}/projects/00-iassistant`}
+                        >{m.link_iassistant()}</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <!-- Dedicated IT engineer -->
+                <li class="mt-2">
+                  <span class="font-semibold">{m.atmo_second_mission()}</span>
+                  <ul class="ml-8 list-outside list-disc">
+                    <!-- <li>
+                      <span class="badge badge-primary badge-sm">Nuxt</span>
+                      <span class="badge badge-primary badge-sm"
+                        >Typescript</span
+                      >
+                      - Design and implementation of an air sensor visualization
+                      web platform for collectivities. See [link].
+                    </li>
+                    <li>
+                      <span class="badge badge-primary badge-sm">Nuxt</span>
+                      <span class="badge badge-primary badge-sm"
+                        >Typescript</span
+                      >
+                      - Creation of an AI showcase, glossary and use case listing
+                      website, for internal use at Atmo AuRA. See [link].
+                    </li> -->
+                    <li>
+                      <span class="badge badge-primary badge-sm">Nuxt</span>
+                      <span class="badge badge-primary badge-sm"
+                        >Typescript</span
+                      >
+                      {m.atmo_second_mission_project_1()}
+                      <a href={`${languageTag()}/projects`}
+                        >{m.link_websites()}</a
+                      >
+                    </li>
+                    <li>
+                      <span class="badge badge-secondary badge-sm">C++</span>
+                      <span class="badge badge-secondary badge-sm"
+                        >RaspberryPI</span
+                      >
+                      {m.atmo_second_mission_project_2()}
+                    </li>
+                    <li>
+                      <span class="badge badge-secondary badge-sm">Python</span>
+                      <span class="badge badge-ghost badge-sm">PowerBI</span>
+                      {m.atmo_second_mission_project_3()}
+                    </li>
+                    <li>
+                      <span class="badge badge-ghost badge-sm">PostgreSQL</span>
+                      <span class="badge badge-ghost badge-sm">TimescaleDB</span
+                      >
+                      {m.atmo_second_mission_project_4}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <hr />
+          </li>
+          <!-- FHNW -->
+          <li>
+            <hr />
+            <!-- Icon -->
+            <div class="timeline-middle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </div>
+            <!-- Text -->
+            <div class="timeline-end">
+              <time class="font-mono text-xs italic">07/2023 - 08/2023</time>
+              <h3 class="my-0 text-base font-semibold leading-none">
+                {m.fhnw_title()}
+              </h3>
+              <p class="mb-1 text-sm">{m.fhnw_job_title()}</p>
+              <ul class="prose ml-4 mt-0 list-outside list-disc text-sm">
+                <li>
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.critical_analysis_badge()}</span
+                  >
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.research_badge()}</span
+                  >
+                  <span class="badge badge-accent badge-sm">Docker</span>
+                  <span class="badge badge-secondary badge-sm">Bash</span>
+                  {m.fhnw_project_1()}
+                </li>
+                <li>
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.critical_analysis_badge()}</span
+                  >
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.research_badge()}</span
+                  >
+                  <span class="badge badge-primary badge-sm">Nuxt</span>
+                  <span class="badge badge-primary badge-sm">Typescript</span>
+                  <span class="badge badge-primary badge-sm">Node-RED</span>
+                  <span class="badge badge-secondary badge-sm">Python</span>
+                  {m.fhnw_project_2()}
+                </li>
+              </ul>
+            </div>
+            <hr />
+          </li>
+        </ul>
+        <!-- Education timeline -->
+        <ul
+          class="timeline timeline-vertical timeline-compact timeline-snap-icon text-pretty"
+          slot="education-content"
+        >
+          <!-- ENSIMAG -->
+          <li>
+            <!-- Icon -->
+            <div class="timeline-middle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </div>
+            <!-- Text -->
+            <div class="timeline-end">
+              <time class="font-mono text-xs italic">09/2021 - 08/2024</time>
+              <h3 class="my-0 text-base font-semibold leading-none">
+                {m.ensimag_title()}
+              </h3>
+              <p class="mb-1 text-sm">
+                {m.ensimag_degree()}
+              </p>
+              <ul
+                class="prose ml-4 mt-0 max-w-none list-outside list-disc text-sm"
+              >
+                <li>
+                  <span class="badge badge-accent badge-sm">Git</span>
+                  <span class="badge badge-accent badge-sm">CI/CD</span>
+                  <span class="badge badge-accent badge-sm">Docker</span>
+                  {m.ensimag_project_1()}
+                </li>
+                <li>
+                  <span class="badge badge-secondary badge-sm">C</span>
+                  <span class="badge badge-secondary badge-sm">ASM</span>
+                  {m.ensimag_project_2()}
+                </li>
+                <li>
+                  <span class="badge badge-secondary badge-sm"
+                    >{m.ai_badge()}</span
+                  >
+                  <span class="badge badge-secondary badge-sm">Python</span>
+                  <span class="badge badge-ghost badge-sm">Godot</span>
+
+                  {m.ensimag_project_3()}
+                </li>
+                <li>
+                  <span class="badge badge-secondary badge-sm">Java</span>
+                  <span class="badge badge-secondary badge-sm">ANTLR</span>
+
+                  {m.ensimag_project_4()}
+                </li>
+                <li>
+                  <span class="badge badge-ghost badge-sm">Raspberry PI</span>
+                  {m.ensimag_project_5()}
+                </li>
+                <li>
+                  <span class="badge badge-ghost badge-sm"
+                    >{m.cybersecurity_badge()}</span
+                  >
+
+                  {m.ensimag_project_6()}
+                </li>
+              </ul>
+            </div>
+            <hr />
+          </li>
+          <!-- IUT Annecy -->
+          <li>
+            <hr />
+            <!-- Icon -->
+            <div class="timeline-middle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </div>
+            <!-- Text -->
+            <div class="timeline-end max-w-none">
+              <time class="font-mono text-xs italic">07/2023 - 08/2023</time>
+              <h3 class="my-0 text-base font-semibold leading-none">
+                IUT Annecy
+              </h3>
+              <p class="mb-1 text-sm">
+                {m.iut_degree()}
+              </p>
+              <ul
+                class="prose ml-4 mt-0 max-w-none list-outside list-disc text-sm"
+              >
+                <li>
+                  <span class="badge badge-primary badge-sm">Grafana</span>
+                  <span class="badge badge-ghost badge-sm">Dataviz</span>
+                  {m.iut_project_1()}
+                </li>
+              </ul>
+            </div>
+            <hr />
+          </li>
+          <!-- Lycee de l'Albanais -->
+          <li>
+            <hr />
+            <!-- Icon -->
+            <div class="timeline-middle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </div>
+            <!-- Text -->
+            <div class="timeline-end max-w-none">
+              <time class="font-mono text-xs italic">09/2016 - 08/2019</time>
+              <h3 class="my-0 text-base font-semibold leading-none">
+                Lycee de l'Albanais
+              </h3>
+              <p class="mb-1 text-sm">
+                {m.high_school_degree()}
+              </p>
+              <ul
+                class="prose ml-4 mt-0 max-w-none list-outside list-disc text-sm"
+              >
+                <li>
+                  <span class="badge badge-secondary badge-sm">Arduino</span>
+                  {m.high_school_project_1()}
+                </li>
+              </ul>
+            </div>
+            <hr />
+          </li>
+        </ul>
+      </WorkAndEducationTabs>
+    </section>
+    <!-- Projects -->
+    <section
+      id="projects"
+      class="prose relative mb-3 max-w-none text-base xl:ml-2"
+    >
+      <!-- Scroll marker -->
+      <div id="projects-marker" class="absolute -top-20 left-0 right-0 h-0">
+      </div>
+      <!-- Title -->
+      <h2
+        class="mb-4 mt-0 flex min-h-12 flex-row flex-nowrap items-center rounded-box bg-base-300 p-2 px-4 text-center"
+      >
+        <span class="mr-auto">{m.projects_tab_title()}</span>
+        <a
+          class="btn btn-sm border border-solid border-base-content font-semibold"
+          href={`/${languageTag()}/projects`}>{m.see_more_button()}</a
+        >
+      </h2>
+      <!-- Project cards container -->
+      <div
+        class="mb-0 flex flex-col flex-nowrap gap-y-2 rounded-box bg-base-200 p-2"
+      >
+        {
+          featuredProjectEntries.map((entry, i) => (
+            <div class="project-card-wrapper">
+              <ProjectCard otherClasses="h-full">
+                <Image
+                  slot="image"
+                  class="not-prose h-52 max-h-52 min-h-52 object-cover"
+                  alt={entry.data.thumbnail_alt}
+                  src={entry.data.thumbnail}
+                  quality="mid"
+                  decoding="async"
+                  loading={i <= 1 ? "eager" : "lazy"}
+                />
+                {/*                   widths={[
+                    640, 768, 544, 424, 412,
+                    // entry.data.thumbnail.width / 4,
+                    // entry.data.thumbnail.width / 2,
+                    // entry.data.thumbnail.width,
+                  ]}
+                  sizes={`(width < 640px) ${768}px,
+            (640px <= width < 768px) ${768}px,
+            (768px <= width < 1024px) ${640}px,
+            (1024px <= width < 1280px) ${424}px,
+            (1280px <= width) ${412}px`} */}
+                {/* <!-- Title --> */}
+                <h2 slot="title" class="card-title">
+                  {entry.data.title}
+                </h2>
+                {/* <!-- Body --> */}
+                <p slot="description">{entry.data.short_description}</p>
+                {/* <!-- Actions --> */}
+                <Fragment slot="actions">
+                  {entry.data.badges.map(
+                    (badge: { type: string; label: string }) => (
+                      <div class={`badge badge-${badge.type}`}>
+                        {badge.label}
+                      </div>
+                    ),
+                  )}
+                </Fragment>
+                <a
+                  slot="button"
+                  class="btn btn-primary btn-sm ml-auto"
+                  href={`/${languageTag()}/projects/${stripLanguageTag(entry.slug)}`}
+                >
+                  {m.more_info_button()}
+                </a>
+              </ProjectCard>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <!-- General styling -->
+  <style>
+    /* under sm screens */
+    @media screen and (width < 640px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+      }
+
+      #phone-frame-wrapper {
+        justify-content: stretch;
+        align-items: stretch;
+      }
+
+      #tech-stack-icons :global(.tech-icon) {
+        /* outline: 1px black solid; */
+        flex-basis: 33%;
+      }
+
+      /* Very small screens (Ex: Samsung Galaxy S8) */
+      @media screen and (height < 800px) {
+        #scroll-hint {
+          position: sticky;
+          bottom: 32px;
+
+          justify-content: end;
+          padding-right: 16px;
+        }
+      }
+
+      @media screen and (height > 900px) {
+        #main {
+          @apply mb-24;
+        }
+        /* #scroll-hint {
+          position: sticky;
+          bottom: 32px;
+
+          justify-content: end;
+          padding-right: 16px;
+        } */
+      }
+    }
+
+    /* sm screens */
+    @media screen and (640px <= width < 768px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #phone-frame-wrapper {
+        justify-content: center;
+        align-items: stretch;
+      }
+
+      #scroll-hint {
+        /* display: none; */
+      }
+
+      #tech-stack-icons :global(.tech-icon) {
+        /* outline: 1px black solid; */
+        flex-basis: 33%;
+      }
+    }
+
+    /* md screens */
+    @media screen and (768px <= width < 1024px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #phone-frame-wrapper {
+        justify-content: center;
+        align-items: stretch;
+      }
+
+      #scroll-hint {
+        /* display: none; */
+      }
+
+      #tech-stack-icons :global(.tech-icon) {
+        /* outline: 1px black solid; */
+        flex-basis: 25%;
+      }
+    }
+
+    /* lg screens */
+    @media screen and (1024px <= width < 1280px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-2xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #phone-frame-wrapper {
+        justify-content: center;
+        align-items: stretch;
+      }
+
+      #mouse-scroll-hint {
+        display: block;
+      }
+
+      #scroll-hint > svg {
+        display: none;
+      }
+
+      #tech-stack-icons :global(.tech-icon) {
+        /* outline: 1px black solid; */
+        flex-basis: 25%;
+      }
+    }
+
+    /* xl screens and above */
+    @media screen and (1280px <= width) {
+      #scroll-hint {
+        display: none;
+      }
+
+      #main {
+        display: grid;
+        grid-template-columns: 576px 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+          "phone tech tech"
+          "phone edu projects"
+          "phone edu projects";
+      }
+
+      #header {
+        display: none;
+      }
+
+      #phone-frame-wrapper {
+        grid-area: phone;
+
+        grid-template-rows: 64px auto;
+        row-gap: 16px;
+
+        justify-items: center;
+        justify-content: center;
+        align-items: first baseline;
+      }
+
+      #phone-frame {
+        position: sticky;
+      }
+
+      #tech-stack {
+        grid-area: tech;
+      }
+
+      #tech-stack-icons :global(.tech-icon) {
+        /* outline: 1px black solid; */
+        flex-basis: 15%;
+      }
+
+      #work-and-edu {
+        grid-area: edu;
+      }
+
+      /* Animations for lg screens */
+      @media screen and (prefers-reduced-motion: no-preference) {
+        #tech-stack {
+          opacity: 0;
+
+          animation: fade-in 250ms ease-out forwards;
+          animation-delay: 1750ms;
+        }
+
+        #work-and-edu {
+          opacity: 0;
+
+          animation: fade-in 250ms ease-out forwards;
+          animation-delay: 2000ms;
+        }
+
+        #projects {
+          opacity: 0;
+
+          animation: fade-in 250ms ease-out forwards;
+          animation-delay: 2250ms;
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+
+          to {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    /* Animations */
+    @media screen and (prefers-reduced-motion: no-preference) {
+      /* MSG slide animation */
+      .msg {
+        transform: translateX(-120%);
+        animation: msg-slide-in var(--msg-enter-duration) 1 forwards;
+        animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      #first-msg {
+        animation-delay: calc(
+          var(--phone-enter-duration) + var(--msg-enter-delay)
+        );
+      }
+
+      #second-msg {
+        animation-delay: calc(
+          var(--phone-enter-duration) + var(--msg-enter-delay) +
+            var(--msg-enter-duration)
+        );
+      }
+
+      #third-msg {
+        animation-delay: calc(
+          var(--phone-enter-duration) + var(--msg-enter-delay) +
+            var(--msg-enter-duration) + var(--msg-enter-duration)
+        );
+      }
+
+      @keyframes msg-slide-in {
+        from {
+          transform: translateX(-120%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+    }
+    /* ---- */
+
+    :global(.badge-ghost) {
+      /* @apply outline outline-1; */
+      @apply border border-solid border-neutral-content;
+    }
+  </style>
+
+  <!-- Tooltips -->
+  <style is:global>
+    [data-tooltip] {
+      display: flex;
+      /* align-items: end; */
+      justify-content: center;
+    }
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      display: inline-block;
+      position: absolute;
+      scale: 0%;
+      transition: scale 250ms;
+      transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      @apply mt-12 rounded-md bg-info p-1 text-info-content;
+    }
+
+    [data-tooltip]:hover:after {
+      scale: 100%;
+    }
+  </style>
+
+  <!-- Modal dialog -->
+  <style>
+    /*   Open state of the dialog  */
+    dialog[open] {
+      opacity: 1;
+      /* transform: scaleY(1); */
+      transform: scale(1);
+    }
+
+    /*   Closed state of the dialog   */
+    dialog {
+      opacity: 0;
+      /* transform: scaleY(0); */
+      transform: scale(0);
+      transition:
+        opacity 0.2s ease-out,
+        transform 0.2s ease-out,
+        overlay 0.2s ease-out allow-discrete,
+        display 0.2s ease-out allow-discrete;
+      /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+    }
+
+    /*   Before-open state  */
+    /* Needs to be after the previous dialog[open] rule to take effect,
+    as the specificity is the same */
+    @starting-style {
+      dialog[open] {
+        opacity: 0;
+        /* transform: scaleY(0); */
+        transform: scale(0);
+      }
+    }
+
+    /* Transition the :backdrop when the dialog modal is promoted to the top layer */
+    dialog::backdrop {
+      background-color: rgb(0 0 0 / 0%);
+      transition:
+        display 0.1s allow-discrete,
+        overlay 0.1s allow-discrete,
+        background-color 0.1s;
+      /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+    }
+
+    dialog[open]::backdrop {
+      background-color: rgb(0 0 0 / 25%);
+    }
+
+    /* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+
+    @starting-style {
+      dialog[open]::backdrop {
+        background-color: rgb(0 0 0 / 0%);
+      }
+    }
+  </style>
+
+  <!-- Tabs -->
+  <style>
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 auto 20px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .radiotab {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .label {
+      width: 100%;
+      padding: 22px 20px;
+      background: #e5e5e5;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 23px;
+      color: #7f7f7f;
+      transition:
+        background 0.3s,
+        color 0.3s;
+      border: none;
+      border-radius: 0;
+      text-align: center;
+    }
+
+    .label:hover {
+      background: #d8d8d8;
+    }
+
+    .label:active {
+      background: #ccc;
+    }
+
+    .radiotab:checked + .label {
+      background: #fff;
+      color: #000;
+      border-top: solid 2px #000;
+      border-left: solid 2px #000;
+      border-right: solid 2px #000;
+      border-bottom: none;
+    }
+
+    .panel {
+      display: none;
+      padding: 20px 30px 30px;
+      background: #fff;
+      width: 100%;
+      border-left: solid 2px #000;
+      border-bottom: solid 2px #000;
+      border-right: solid 2px #000;
+    }
+
+    .radiotab:checked + .label + .panel {
+      display: block;
+    }
+
+    .panel {
+      order: 99;
+    }
+
+    .label {
+      width: 33.33%;
+      border-radius: 10px 10px 0 0;
+      border-bottom: solid 2px #000;
+    }
+  </style>
+
+  <!-- Scrolling marquee -->
+  <style>
+    .b-section {
+      container-type: inline-size;
+    }
+    .b-section-marquee-box {
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+
+      max-width: 100cqw;
+      overflow-x: hidden;
+    }
+    .b-section-marquee-box .marquee-text {
+      white-space: nowrap;
+      flex-shrink: 0;
+      /* width: max-content; */
+      display: flex;
+      align-items: center;
+      translate: 0 0;
+    }
+
+    @keyframes b-text-scroll {
+      0% {
+        /* transform: translate3d(0, 0, 0); */
+        translate: 0 0;
+      }
+      100% {
+        /* transform: translate3d(-100%, 0, 0); */
+        translate: -100% 0;
+      }
+    }
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      .b-section-marquee-box .marquee-text {
+        animation: b-text-scroll 10s linear infinite;
+      }
+    }
+  </style>
+</PortfolioLayout>

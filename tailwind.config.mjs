@@ -10,7 +10,7 @@ export default {
   },
   plugins: [typography, animate, daisyui],
   daisyui: {
-    themes: ["nord", "night"],
-    darkTheme: "night",
+    themes: ["cupcake", "dim"],
+    darkTheme: "dim",
   },
 };

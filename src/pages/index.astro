@@ -1,5 +1,10 @@
 ---
-import { sourceLanguageTag } from "../paraglide/runtime";
+import { sourceLanguageTag } from "@paraglide/runtime";
+
+// import DefaultLayout from "@layouts/DefaultLayout.astro";
+// import * as m from "@paraglide/messages.js";
+// import { Image } from "astro:assets";
+// import profile from "assets/images/profile-picture-square.webp";
 ---
 
 <html>
@@ -8,3 +13,8 @@ import { sourceLanguageTag } from "../paraglide/runtime";
     <link rel="canonical" href=`${sourceLanguageTag}` />
   </head>
 </html>
+<!-- <DefaultLayout title={m.homepage_title()} description={m.homepage_desc()}>
+  <div>
+    <Image alt="profile" src={profile} />
+  </div>
+</DefaultLayout> -->

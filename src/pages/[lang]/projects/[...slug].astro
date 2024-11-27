@@ -1,0 +1,434 @@
+---
+import { getCollection } from "astro:content";
+import { availableLanguageTags, languageTag } from "@paraglide/runtime";
+import LangSwitcher from "@components/LangSwitcher.astro";
+import ThemeSwitcher from "@components/ThemeSwitcher.astro";
+import ProjectsLayout from "@layouts/ProjectsLayout.astro";
+import { Image } from "astro:assets";
+import * as m from "@paraglide/messages";
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection("projects");
+  return projectEntries.map((entry) => {
+    if (entry.id.startsWith("en/")) {
+      return {
+        params: { lang: "en", slug: entry.slug.substring(2) },
+        props: { entry },
+      };
+    } else {
+      return {
+        params: { lang: "fr", slug: entry.slug.substring(2) },
+        props: { entry },
+      };
+    }
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+function getPreviousSlideNb(size: number, current: number) {
+  return current - 1 < 0 ? size - 1 : current - 1;
+}
+
+function getNextSlideNb(size: number, current: number) {
+  return (current + 1) % size;
+}
+---
+
+<!-- <Content /> -->
+<ProjectsLayout
+  title={entry.data.title}
+  description={`${m.project_page_description()} ${entry.data.title}`}
+>
+  <Fragment slot="head">
+    <!-- <link rel="preload" href={profilePicture.src} as="image" /> -->
+  </Fragment>
+  <div id="top" class="absolute left-0 right-0 top-0 h-0"></div>
+  <!-- Sticky top header -->
+  <header id="header" class="top-1 z-20 h-16">
+    <div
+      class="navbar mx-auto max-w-sm items-stretch justify-evenly rounded-full bg-base-100"
+    >
+      <a class="link" href=`/${languageTag()}`>{m.home_button()}</a>
+      <a class="link" href=`/${languageTag()}#tech-stack-marker`
+        >{m.tech_button()}</a
+      >
+      <a class="link" href=`/${languageTag()}/projects`>{m.projects_button()}</a
+      >
+      <!-- Theme switcher -->
+      <ThemeSwitcher />
+      <!-- Lang switcher -->
+      <LangSwitcher />
+    </div>
+  </header>
+  <main id="main" class="mb-20 p-2">
+    <!-- Projects -->
+    <section
+      id="project"
+      class="prose relative mb-3 max-w-none text-base xl:ml-2"
+    >
+      <!-- Scroll marker -->
+      <div id="projects-marker" class="absolute -top-20 left-0 right-0 h-0">
+      </div>
+      <!-- Title -->
+      <h2
+        class="mb-4 mt-0 flex min-h-12 flex-row rounded-box bg-base-300 p-2 px-4 text-center"
+      >
+        <span class="mr-auto">{entry.data.title}</span>
+        <a
+          class="btn btn-sm border border-solid border-base-content font-semibold"
+          href={`/${languageTag()}/projects`}
+          aria-label="Return to project list">↩️</a
+        >
+      </h2>
+      <!-- Project images and tags container -->
+      <div class="mb-4 grid grid-cols-1 gap-y-2 rounded-box bg-base-200 p-2">
+        <!-- Image carousel -->
+        <div class="not-prose carousel w-full">
+          {
+            entry.data.images?.map((img, i) => (
+              <div id={`slide${i}`} class="carousel-item relative w-full">
+                <Image
+                  class="object-contain"
+                  alt={`A slide about the ${entry.data.title} project`}
+                  src={img}
+                  quality="high"
+                  decoding="async"
+                  loading="eager"
+                />
+                <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                  <a
+                    href={`#slide${getPreviousSlideNb(entry.data.images!.length, i)}`}
+                    class="btn btn-circle"
+                  >
+                    ❮
+                  </a>
+                  <a
+                    href={`#slide${getNextSlideNb(entry.data.images!.length, i)}`}
+                    class="btn btn-circle"
+                  >
+                    ❯
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-row justify-evenly">
+          {
+            entry.data.badges.map((badge: { type: string; label: string }) => (
+              <div class={`badge badge-lg badge-${badge.type}`}>
+                {badge.label}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <!-- Project description container -->
+      <div class="mb-0 grid grid-cols-1 gap-y-2 rounded-box bg-base-200 p-2">
+        <h3 class="mt-0">Description</h3>
+        <section class="prose max-w-none">
+          <Content />
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- General styling -->
+  <style>
+    /* under sm screens */
+    @media screen and (width < 640px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+      }
+
+      /* Very small screens (Ex: Samsung Galaxy S8) */
+      @media screen and (height < 800px) {
+      }
+    }
+
+    /* sm screens */
+    @media screen and (640px <= width < 768px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* md screens */
+    @media screen and (768px <= width < 1024px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-2xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* lg screens */
+    @media screen and (1024px <= width < 1280px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        @apply max-w-4xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Animations for lg screens */
+      @media screen and (prefers-reduced-motion: no-preference) {
+      }
+    }
+
+    /* xl screens and above */
+    @media screen and (1280px <= width) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        @apply max-w-6xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* Animations */
+    @media screen and (prefers-reduced-motion: no-preference) {
+    }
+    /* ---- */
+
+    :global(.badge-ghost) {
+      /* @apply outline outline-1; */
+      @apply border border-solid border-neutral-content;
+    }
+  </style>
+
+  <!-- Tooltips -->
+  <style>
+    [data-tooltip] {
+      display: flex;
+      /* align-items: end; */
+      justify-content: center;
+    }
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      display: inline-block;
+      position: absolute;
+      scale: 0%;
+      transition: scale 250ms;
+      transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      @apply mt-12 rounded-md bg-info p-1 text-info-content;
+    }
+
+    [data-tooltip]:hover:after {
+      scale: 100%;
+    }
+  </style>
+
+  <!-- Modal dialog -->
+  <style>
+    /*   Open state of the dialog  */
+    dialog[open] {
+      opacity: 1;
+      /* transform: scaleY(1); */
+      transform: scale(1);
+    }
+
+    /*   Closed state of the dialog   */
+    dialog {
+      opacity: 0;
+      /* transform: scaleY(0); */
+      transform: scale(0);
+      transition:
+        opacity 0.2s ease-out,
+        transform 0.2s ease-out,
+        overlay 0.2s ease-out allow-discrete,
+        display 0.2s ease-out allow-discrete;
+      /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+    }
+
+    /*   Before-open state  */
+    /* Needs to be after the previous dialog[open] rule to take effect,
+    as the specificity is the same */
+    @starting-style {
+      dialog[open] {
+        opacity: 0;
+        /* transform: scaleY(0); */
+        transform: scale(0);
+      }
+    }
+
+    /* Transition the :backdrop when the dialog modal is promoted to the top layer */
+    dialog::backdrop {
+      background-color: rgb(0 0 0 / 0%);
+      transition:
+        display 0.1s allow-discrete,
+        overlay 0.1s allow-discrete,
+        background-color 0.1s;
+      /* Equivalent to
+  transition: all 0.7s allow-discrete; */
+    }
+
+    dialog[open]::backdrop {
+      background-color: rgb(0 0 0 / 25%);
+    }
+
+    /* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+
+    @starting-style {
+      dialog[open]::backdrop {
+        background-color: rgb(0 0 0 / 0%);
+      }
+    }
+  </style>
+
+  <!-- Tabs -->
+  <style>
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 auto 20px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .radiotab {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .label {
+      width: 100%;
+      padding: 22px 20px;
+      background: #e5e5e5;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 23px;
+      color: #7f7f7f;
+      transition:
+        background 0.3s,
+        color 0.3s;
+      border: none;
+      border-radius: 0;
+      text-align: center;
+    }
+
+    .label:hover {
+      background: #d8d8d8;
+    }
+
+    .label:active {
+      background: #ccc;
+    }
+
+    .radiotab:checked + .label {
+      background: #fff;
+      color: #000;
+      border-top: solid 2px #000;
+      border-left: solid 2px #000;
+      border-right: solid 2px #000;
+      border-bottom: none;
+    }
+
+    .panel {
+      display: none;
+      padding: 20px 30px 30px;
+      background: #fff;
+      width: 100%;
+      border-left: solid 2px #000;
+      border-bottom: solid 2px #000;
+      border-right: solid 2px #000;
+    }
+
+    .radiotab:checked + .label + .panel {
+      display: block;
+    }
+
+    .panel {
+      order: 99;
+    }
+
+    .label {
+      width: 33.33%;
+      border-radius: 10px 10px 0 0;
+      border-bottom: solid 2px #000;
+    }
+  </style>
+
+  <!-- Scrolling marquee -->
+  <style>
+    .b-section {
+      container-type: inline-size;
+    }
+    .b-section-marquee-box {
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+
+      max-width: 100cqw;
+      overflow-x: hidden;
+    }
+    .b-section-marquee-box .marquee-text {
+      white-space: nowrap;
+      flex-shrink: 0;
+      /* width: max-content; */
+      display: flex;
+      align-items: center;
+      translate: 0 0;
+    }
+
+    @keyframes b-text-scroll {
+      0% {
+        /* transform: translate3d(0, 0, 0); */
+        translate: 0 0;
+      }
+      100% {
+        /* transform: translate3d(-100%, 0, 0); */
+        translate: -100% 0;
+      }
+    }
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      .b-section-marquee-box .marquee-text {
+        animation: b-text-scroll 10s linear infinite;
+      }
+    }
+  </style>
+</ProjectsLayout>
