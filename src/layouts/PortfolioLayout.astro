@@ -25,10 +25,11 @@ const graphPaperSrc = `url(${graphPaper.src})`;
         const preferredScheme = window?.matchMedia?.(
           "(prefers-color-scheme:dark)",
         )?.matches
-          ? "dark"
-          : "light";
+          ? "dim"
+          : "cupcake";
 
         document.documentElement.setAttribute("data-theme", preferredScheme);
+        console.log("Pref scheme :", preferredScheme);
       } else
         document.documentElement.setAttribute(
           "data-theme",

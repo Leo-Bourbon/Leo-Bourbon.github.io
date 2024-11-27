@@ -13,17 +13,19 @@ const { idNumber = 1 } = Astro.props;
       <!-- this hidden checkbox controls the state -->
       <input
         id={`theme-switch-checkbox-${idNumber}`}
-        name="theme-switch-checkbox"
+        name={`theme-switch-checkbox-${idNumber}`}
         type="checkbox"
         data-toggle-theme="dim,cupcake"
       />
       <!-- Hidden text label for accessibility -->
       {m.theme_tooltip()}
 
-      <script is:inline>
+      <script is:inline define:vars={{ idNumber }}>
         // If we are already on dark mode
         if (document.documentElement.getAttribute("data-theme") == "dim") {
-          const checkbox = document.getElementById("theme-switch-checkbox");
+          const checkbox = document.getElementById(
+            `theme-switch-checkbox-${idNumber}`,
+          );
           if (checkbox) {
             // Then check the input accordingly
             checkbox.checked = true;
