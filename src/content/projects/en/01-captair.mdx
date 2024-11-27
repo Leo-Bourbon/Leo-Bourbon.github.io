@@ -1,0 +1,42 @@
+---
+title: "CAPTAIR Map"
+languageTag: "en"
+thumbnail_alt: "CAPTAIR project thumbnail"
+thumbnail: "src/assets/images/projects/captair/CAPTAIR_public_map.png"
+images:
+  - "src/assets/images/projects/captair/CAPTAIR_home.png"
+  - "src/assets/images/projects/captair/CAPTAIR_public_map.png"
+  - "src/assets/images/projects/captair/CAPTAIR_replay_map.png"
+short_description: "Web platofrm made to aggregate and visualize many sources of air quality sensor data, from static and mobile sources, on the Auvergne-Rhône-Alpes territory. Includes replay functionnality."
+badges:
+  - label: VueJS
+    type: primary
+  - label: Typescript
+    type: primary
+  - label: SQL
+    type: ghost
+  - label: InfluxDB
+    type: ghost
+  - label: Dataviz
+    type: ghost
+featured: true
+---
+#### Timeframe
+This project was carried out during my first year of work/study at Atmo Auvergne-Rhône-Alpes.
+
+#### Context
+In the Auvergne-Rhône-Alpes region, there are many different sources of air quality sensor data. The data is very diverse : official, community produced, from fixed sensors, from mobile sensors...
+
+However, there was no single place to access all this data at once. Furthermore, while real-time data was available for mobile sensors, there was no easy way to quickly visualise it over time.
+
+#### Aim
+This web platform was created to make all available air quality related data for the Auvergne-Rhône-Alpes region available in one place and easy to use.
+
+As there was an ongoing project with local communities to collect mobile sensor data, we used the data from this project as a starting point to design the platform. This meant that we had to make it accessible to the general public and ensure that we respected existing regulations on official air quality data, as official and community data would end up being displayed side by side. 
+
+#### Functionality and use
+This site is open to the public. It allows a wide range of different datasets to be consulted, from concentrations of air pollutants to temperature measurements.
+
+When viewing data from mobile sensors, the location of the sensor is updated in real time, with a coloured trail showing the last few measurements taken. 
+
+It is also possible to create a replay of the data over a specified period with a selected time step. Once created, the replay can be viewed like a video and there are controls similar to a video player to control it.

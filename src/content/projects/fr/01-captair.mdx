@@ -1,0 +1,42 @@
+---
+title: "Carte CAPTAIR"
+languageTag: "fr"
+thumbnail_alt: "Miniature projet carte CAPTAIR"
+thumbnail: "src/assets/images/projects/captair/CAPTAIR_public_map.png"
+images:
+  - "src/assets/images/projects/captair/CAPTAIR_home.png"
+  - "src/assets/images/projects/captair/CAPTAIR_public_map.png"
+  - "src/assets/images/projects/captair/CAPTAIR_replay_map.png"
+short_description: "Plateforme web créée pour aggréger et visualiser de nombreuses sources de données de qualités de l'air, aussi bien statiques que mobiles, sur la région Auvergne-Rhône-Alpes. Comprend des fonctionnalités de replay."
+badges:
+  - label: VueJS
+    type: primary
+  - label: Typescript
+    type: primary
+  - label: SQL
+    type: ghost
+  - label: InfluxDB
+    type: ghost
+  - label: Dataviz
+    type: ghost
+featured: true
+---
+#### Calendrier
+Ce projet a été réalisé au cours de ma première année d'alternance à Atmo Auvergne-Rhône-Alpes.
+
+#### Contexte
+Dans la région Auvergne-Rhône-Alpes, il existe de nombreuses sources de données de capteurs de qualité de l'air. Les données sont très diverses : officielles, produites par les communautés, provenant de capteurs fixes, de capteurs mobiles...
+
+Cependant, il n'existait pas d'endroit unique pour accéder à toutes ces données en même temps. En outre, bien que des données en temps réel soient disponibles pour les capteurs mobiles, il n'existe pas de moyen facile de les visualiser rapidement dans le temps.
+
+#### Objectifs
+Cette plateforme web a été créée pour rendre toutes les données disponibles relatives à la qualité de l'air dans la région Auvergne-Rhône-Alpes disponibles en un seul endroit et faciles à utiliser.
+
+Comme Atmo AuRA avait déjà un projet en cours avec les communautés locales, pour collecter des données de capteurs mobiles, nous avons utilisé les données de ce projet comme point de départ pour concevoir la plateforme. Cela signifiait que nous devions la rendre accessible au grand public et nous assurer que nous respections les réglementations existantes sur les données officielles relatives à la qualité de l'air, car les données officielles et communautaires seraient affichées côte à côte. 
+
+#### Fonctionnalités et utilisation
+Ce site est ouvert au public. Il permet de consulter un large éventail d'ensembles de données différents, allant des concentrations de polluants atmosphériques aux mesures de température.
+
+Lors de la consultation de données provenant de capteurs mobiles, la localisation du capteur est mise à jour en temps réel, avec un tracé coloré montrant les dernières mesures effectuées.
+
+Il est également possible de créer une rediffusion des données sur une période donnée avec un pas de temps sélectionné. Une fois créée, la rediffusion peut être visualisée comme une vidéo et des commandes similaires à celles d'un lecteur vidéo permettent de la contrôler.

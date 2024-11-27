@@ -1,0 +1,29 @@
+---
+import { languageTag } from "@paraglide/runtime";
+import { Icon } from "astro-icon/components";
+
+import * as m from "@paraglide/messages";
+const { url } = Astro;
+---
+
+<div>
+  <div
+    class="tooltip tooltip-bottom grid justify-center"
+    data-tip={m.lang_tooltip()}
+  >
+    <a
+      class="lang-switch"
+      class="link"
+      type="button"
+      href={languageTag() === "en" ? url.pathname.replace("/en", "/fr") : url.pathname.replace("/fr", "/en")}
+      aria-label={m.lang_tooltip()}
+    >
+      <Icon
+        name={languageTag() === "en"
+          ? "twemoji--flag-united-states"
+          : "twemoji--flag-france"}
+        size="2em"
+      />
+    </a>
+  </div>
+</div>

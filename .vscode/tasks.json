@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "preview",
+			"problemMatcher": [
+				"$vite"
+			],
+			"label": "npm: preview",
+			"detail": "astro preview",
+			"isBackground": true
+		}
+	]
+}

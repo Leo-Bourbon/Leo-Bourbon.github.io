@@ -1,0 +1,37 @@
+---
+interface Props {
+  otherClasses?: string;
+}
+const { otherClasses } = Astro.props;
+---
+
+<div
+  class:list={[
+    "project-card not-prose card card-compact bg-base-100 shadow-xl",
+    otherClasses,
+  ]}
+>
+  <figure>
+    <slot name="image" />
+  </figure>
+  <div class="card-body">
+    <slot name="title" />
+    <slot name="description" />
+
+    <div class="card-actions flex-row items-baseline">
+      <slot name="actions" />
+    </div>
+    <div class="flex-grow"></div>
+    <slot name="button">
+      <button class="btn btn-md ml-auto" disabled="disabled"
+        >Default button</button
+      >
+    </slot>
+  </div>
+</div>
+
+<style>
+  :global(.project-card .card-body :where(p)) {
+    flex-grow: 0;
+  }
+</style>

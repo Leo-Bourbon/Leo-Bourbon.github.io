@@ -2,23 +2,23 @@
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages.js";
 import Emoji from "astro-emoji";
+import PortfolioLayout from "@layouts/PortfolioLayout.astro";
 ---
 
-<html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
+<PortfolioLayout title="404" description="404">
+  <section class="prose flex flex-col items-center p-6">
     <h1 class="text-red-600">404</h1>
-    <p>{m.error_404()}</p>
-    <a href="/" class="btn">
-        <Emoji symbol="↩️" label="return arrow" />
-        {m.home_button()}
+    <label class="swap swap-flip text-9xl" for="404-emoji-swap">
+      <!-- this hidden checkbox controls the state -->
+      <input type="checkbox" id="404-emoji-swap" />
+      <div class="swap-on">🤔</div>
+      <div class="swap-off">😓</div>
+    </label>
+    <!-- Text -->
+    <p class="font-semibold">{m.error_404()}</p>
+    <a href=`/${languageTag()}` class="btn">
+      <Emoji symbol="↩️" label="return arrow" />
+      {m.home_button()}
     </a>
-  </body>
-</html>
+  </section>
+</PortfolioLayout>
