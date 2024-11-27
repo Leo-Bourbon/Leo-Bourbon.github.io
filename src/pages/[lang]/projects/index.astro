@@ -13,9 +13,6 @@ export function getStaticPaths() {
 }
 
 import { Image } from "astro:assets";
-import captairThumbnail from "src/assets/images/projects/captair/CAPTAIR_public_map.png";
-import iassistantThumbnail from "src/assets/images/projects/iassistant/IAssistant_home.jpg";
-import portfolioThumbnail from "src/assets/images/projects/portfolio/portfolio-home.png";
 
 import { getCollection } from "astro:content";
 const projectEntries = await getCollection("projects", ({ id }) => {

@@ -15,8 +15,9 @@ const graphPaperSrc = `url(${graphPaper.src})`;
 
 <html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
   <head>
-    <!-- Theme switcher -->
+    {/* Theme switcher */}
     <script is:inline>
+      // https://github.com/saadeghi/theme-change
       // ☝️ This script prevent the FART effect.
       // If no previous preference is set
       if (localStorage.getItem("theme") === null) {
@@ -41,7 +42,7 @@ const graphPaperSrc = `url(${graphPaper.src})`;
       themeChange();
       // 👆 you could import the CDN directly instead of these two lines
     </script>
-    <!-- Usual head -->
+    {/* Usual head */}
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -60,7 +61,5 @@ const graphPaperSrc = `url(${graphPaper.src})`;
   html {
     scrollbar-gutter: stable both-edges;
     background-image: var(--graphPaperSrc);
-    /* background-color: rgba(255, 255, 255, 1);
-    background-blend-mode: lighten; */
   }
 </style>
