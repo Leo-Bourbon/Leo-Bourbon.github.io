@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  icon_name: string;
+  tech_href: string;
+  indicator: "primary" | "secondary" | "accent" | "ghost";
+}
+const { icon_name, tech_href, indicator } = Astro.props;
+---
+
+<li
+  class="tech-icon m-0 inline-block min-h-20 min-w-20 pl-0 pt-2 transition-colors hover:bg-base-200"
+>
+  <a
+    class="inline-flex w-full flex-col items-center"
+    href={tech_href}
+    target="_blank"
+  >
+    <div class="indicator">
+      <span
+        class:list={[
+          "badge",
+          "indicator-item",
+          {
+            "badge-primary": indicator === "primary",
+            "badge-secondary": indicator === "secondary",
+            "badge-accent": indicator === "accent",
+            "badge-ghost": indicator === "ghost",
+          },
+          "badge-xs",
+        ]}></span>
+      <Icon
+        class="text-pretty rounded-box bg-base-100 p-2 text-center"
+        name={icon_name}
+        size="3em"
+      />
+    </div>
+    <slot name="icon-label">
+      <span>icon_label</span>
+    </slot>
+  </a>
+</li>

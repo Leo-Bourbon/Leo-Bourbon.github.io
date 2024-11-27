@@ -1,0 +1,146 @@
+---
+const props = Astro.props;
+---
+
+<svg
+  class="email-plus"
+  xmlns="http://www.w3.org/2000/svg"
+  width="2em"
+  height="2em"
+  viewBox="0 0 24 24"
+  {...props}
+>
+  <mask id="lineMdEmailPlus0">
+    <g
+      fill="none"
+      stroke="#fff"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+    >
+      <path
+        class="email-plus-body"
+        stroke-dasharray="64"
+        stroke-dashoffset="64"
+        d="M4 5h16c0.55 0 1 0.45 1 1v12c0 0.55 -0.45 1 -1 1h-16c-0.55 0 -1 -0.45 -1 -1v-12c0 -0.55 0.45 -1 1 -1Z"
+      >
+      </path>
+      <path
+        class="email-plus-flap"
+        stroke-dasharray="24"
+        stroke-dashoffset="24"
+        d="M3 6.5l9 5.5l9 -5.5"
+      >
+      </path>
+      <path
+        class="email-plus-cross-circle"
+        fill="#000"
+        fill-opacity="0"
+        stroke="none"
+        d="M19 13c3.31 0 6 2.69 6 6c0 3.31 -2.69 6 -6 6c-3.31 0 -6 -2.69 -6 -6c0 -3.31 2.69 -6 6 -6Z"
+      >
+      </path>
+      <path
+        class="email-plus-cross-h"
+        stroke-dasharray="8"
+        stroke-dashoffset="8"
+        d="M16 19h6"
+      >
+      </path>
+      <path
+        class="email-plus-cross-v"
+        stroke-dasharray="8"
+        stroke-dashoffset="8"
+        d="M19 16v6"
+      >
+      </path>
+    </g>
+  </mask>
+  <rect width="24" height="24" fill="currentColor" mask="url(#lineMdEmailPlus0)"
+  ></rect>
+</svg>
+
+<style is:inline>
+  svg.email-plus {
+    --email-plus-icon-start-delay: 100ms;
+  }
+
+  /* Letter body */
+  svg.email-plus > mask > g > path.email-plus-body {
+    animation: email-plus-body-enter-in 600ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--email-plus-icon-start-delay)
+    );
+  }
+
+  @keyframes email-plus-body-enter-in {
+    from {
+      stroke-dashoffset: 64;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Letter flap */
+  svg.email-plus > mask > g > path.email-plus-flap {
+    animation: email-plus-flap-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--email-plus-icon-start-delay) + 600ms
+    );
+  }
+
+  @keyframes email-plus-flap-enter-in {
+    from {
+      stroke-dashoffset: 24;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Cross circle background */
+  svg.email-plus > mask > g > path.email-plus-cross-circle {
+    animation: email-plus-cross-circle-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--email-plus-icon-start-delay) + 800ms
+    );
+  }
+
+  @keyframes email-plus-cross-circle-enter-in {
+    from {
+      fill-opacity: 0;
+    }
+
+    to {
+      fill-opacity: 1;
+    }
+  }
+
+  /* Cross */
+  svg.email-plus > mask > g > path.email-plus-cross-h {
+    animation: email-plus-cross-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--email-plus-icon-start-delay) + 800ms
+    );
+  }
+
+  svg.email-plus > mask > g > path.email-plus-cross-v {
+    animation: email-plus-cross-enter-in 200ms 1 linear forwards;
+    animation-delay: calc(
+      var(--phone-enter-duration) + var(--email-plus-icon-start-delay) + 1000ms
+    );
+  }
+
+  @keyframes email-plus-cross-enter-in {
+    from {
+      stroke-dashoffset: 8;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

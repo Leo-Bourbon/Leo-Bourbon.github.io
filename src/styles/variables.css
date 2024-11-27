@@ -1,0 +1,7 @@
+:root {
+  --phone-enter-duration: 0ms;
+  --msg-enter-delay: 350ms;
+  --msg-enter-duration: 500ms;
+  --page-turn-delay: 1750ms;
+  --page-turn-duration: 750ms;
+}

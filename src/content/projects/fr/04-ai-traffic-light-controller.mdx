@@ -1,0 +1,40 @@
+---
+title: "Feu de circulation contrôlé par l'IA"
+languageTag: "fr"
+thumbnail_alt: "Miniature projet feu de circulation avec IA"
+thumbnail: "src/assets/images/projects/traffic-controller-ai/Traffic-controller-AI-single.png"
+images:
+  - "src/assets/images/projects/traffic-controller-ai/Traffic-controller-AI-single.png"
+  - "src/assets/images/projects/traffic-controller-ai/Traffic-controller-AI-multiple.png"
+  - "src/assets/images/projects/traffic-controller-ai/Traffic-controller-AI-trainning-stats.png"
+short_description: "Développement d'un controlleur de feu de circulation avec IA, dans le but d'optimiser le flux routier. Application d'apprentissage par renforcement, dans un environnement réalisé avec Godot."
+badges:
+  - label: AI
+    type: secondary
+  - label: Python
+    type: secondary
+  - label: Godot
+    type: ghost
+---
+#### Calendrier
+Il s'agissait d'un projet scolaire, dans le cadre d'un cours sur l'intelligence artificielle. Il a été réalisé sur une période de quelques mois.
+
+#### Contexte
+Dans notre cours d'intelligence artificielle, nous avons appris les fondements mathématiques de l'intelligence artificielle, ainsi que les différents types d'intelligence artificielle. Pour réussir le cours, nous devions créer un programme lié à l'IA en tant qu'équipe de quatre à six personnes.
+Dans notre cas, nous étions un groupe de quatre personnes et j'étais le chef de projet. Cela s'explique en partie par le fait que j'étais le seul à avoir une expérience préalable de l'utilisation de Godot.
+
+#### Objectif
+L'objectif du projet était d'utiliser un algorithme ou une méthode liée à l'IA et de le présenter. L'idée du projet était de créer un contrôleur de feux de circulation qui serait formé à l'aide de l'apprentissage par renforcement.
+
+Cette idée était intéressante car elle faisait appel à des concepts que plusieurs membres de l'équipe apprécient : du code qui « évolue » et le développement de jeux.
+
+Nous avons d'abord dû créer un simulateur de flux de trafic, puis l'utiliser pour appliquer l'apprentissage par renforcement à un feu de circulation situé à une intersection.
+
+L'objectif du contrôleur était d'optimiser le flux de circulation tout en évitant les accidents.
+
+#### Fonctionnalités et utilisation
+Le simulateur de trafic réalisé dans Godot nous permet de créer l'environnement. Le simulateur prend en charge une à plusieurs voies, avec de multiples intersections. Cependant, il est resté dans un état assez primitif, de sorte qu'il a fallu beaucoup d'ajustements manuels si l'on voulait créer de nombreux environnements différents. Mais une fois créé, l'environnement pouvait être utilisé pour la formation et l'exécution de simulations sans autre forme de procès.
+
+Une fois cela fait, nous avons pu utiliser la bibliothèque Godot RL Agents pour définir notre contrôleur de feux de circulation, l'entraîner et lancer l'inférence.
+
+En fin de compte, nous avons pu entraîner un modèle sur une intersection très simple, et il s'est avéré prometteur. Mais notre simulation était encore très simple, et il est évident que l'extension du processus nécessiterait un certain travail.

@@ -1,0 +1,100 @@
+---
+import { Icon } from "astro-icon/components";
+import LineMdEmailPlus from "src/icons/LineMdEmailPlus.astro";
+import LineMdGithubLoop from "src/icons/LineMdGithubLoop.astro";
+import LineMdLinkedin from "src/icons/LineMdLinkedin.astro";
+import * as m from "@paraglide/messages.js";
+
+const props = Astro.props;
+---
+
+<ul
+  id="social-links-menu"
+  class="enter-fade-in menu menu-horizontal menu-xs w-full items-center justify-evenly rounded-box bg-base-200"
+  {...props}
+>
+  <li class="icon-wrapper group">
+    <a
+      class="group btn btn-outline tooltip inline-flex flex-row bg-base-100"
+      data-tip={m.resume_button()}
+      aria-label={m.resume_button()}
+      href={`/${m.resume_path()}`}
+      target="_blank"
+      download
+    >
+      <Icon name="line-md:download-loop" width="2em" height="2em" />
+      <span id="resume-span" class="bg-transparent text-base"
+        >{m.resume_button()}</span
+      >
+    </a>
+    <li class="icon-wrapper">
+      <a
+        class="tooltip"
+        data-tip="LinkedIn"
+        aria-label="LinkedIn"
+        href="https://www.linkedin.com/in/leo-bourbon"
+        target="_blank"
+      >
+        <LineMdLinkedin />
+      </a>
+    </li>
+    <li>
+      <a
+        class="tooltip"
+        data-tip="Github"
+        aria-label="Github"
+        href="https://github.com/Leo-Bourbon"
+        target="_blank"
+      >
+        <LineMdGithubLoop />
+      </a>
+    </li>
+    <li>
+      <a
+        class="tooltip"
+        data-tip={m.send_email_tooltip()}
+        aria-label={m.send_email_tooltip()}
+        href="mailto:leo.bourbon@grenoble-inp.pro"
+      >
+        <LineMdEmailPlus />
+      </a>
+    </li>
+  </li>
+
+  <style>
+    @media (prefers-reduced-motion: no-preference) {
+      #resume-span {
+        color: #0000;
+        -webkit-background-clip: text;
+        background-clip: text !important;
+        background: linear-gradient(oklch(var(--bc)) 0 0) no-repeat;
+        background-size: 0% 100%;
+
+        animation: resume-span-enter-in 1.2s 1 forwards;
+        animation-delay: var(--phone-enter-duration) + 500ms;
+
+        transition: background 150ms;
+      }
+
+      @keyframes resume-span-enter-in {
+        from {
+          background-size: 0% 100%;
+        }
+        to {
+          background-size: 100% 100%;
+        }
+      }
+    }
+
+    a:hover #resume-span {
+      background: linear-gradient(oklch(var(--b1)) 0 0) no-repeat;
+    }
+
+    @media (any-hover: hover) {
+      #social-links-menu li a {
+        @apply transition-colors hover:text-primary;
+        transition-duration: 500ms;
+      }
+    }
+  </style>
+</ul>

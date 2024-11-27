@@ -1,0 +1,60 @@
+---
+title: "[IA]ssistant de veille"
+languageTag: "fr"
+thumbnail_alt: "Miniature projet IAssistant"
+thumbnail: "src/assets/images/projects/iassistant/IAssistant_home.jpg"
+images:
+   - "src/assets/images/projects/iassistant/IAssistant_home.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_Schema_architecture_technique_POC.png"
+   - "src/assets/images/projects/iassistant/IAssistant_chat.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_direct_chat_initialization.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_create_from_files.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_create_from_urls.jpg"
+short_description: "Solution web créée pour assister les flux de travail existants des ingénieurs, dans leur travail de veille sur différents sujets. Conçu avec un focus sur l'éthique et la frugalité de l'IA. Utilise un LLM déployé en local."
+badges:
+  - label: Nuxt
+    type: primary
+  - label: Typescript
+    type: primary
+  - label: AI
+    type: secondary
+  - label: Ollama
+    type: secondary
+  - label: Docker
+    type: accent
+  - label: IA frugale
+    type: ghost
+featured: true
+---
+#### Calendrier
+Ce projet a été réalisé sur une période de six mois dans le cadre de mon projet de fin d'études pour mon diplôme d'ingénieur.
+
+#### Contexte
+Mon rôle était de prendre l'initiative en matière d'IA afin d'orienter les efforts vers des résultats positifs. Pour ce faire, je devais à la fois former notre personnel sur le sujet et effectuer les recherches techniques nécessaires. Ce projet s'inscrivait dans la partie technique de ma mission.
+
+L'idée de créer un assistant de veille scientifique est née d'ateliers que j'avais déjà animés. Mon objectif était de collecter et de compiler une liste de projets possibles, ainsi que les bénéfices et les impacts potentiels de chacun d'entre eux. Une fois cela fait, j'ai pu affiner chaque idée potentielle en une proposition de projet et les classer selon différents critères, tels que la complexité ou l'empreinte de l'impact.
+
+J'ai ensuite présenté les résultats aux directeurs afin qu'ils sélectionnent l'un des projets à mettre en œuvre dans le cadre de mon projet de fin d'études. Ce projet devait être suffisamment court pour être réalisé avant la fin de mon contrat et présenter suffisamment d'exigences techniques pour être accepté par l'école.
+
+Finalement, nous avons choisi de travailler dans le domaine de l'IA générative, dans le but de créer un assistant pour les ingénieurs qui travaillent sur plusieurs sujets scientifiques en même temps et qui doivent garder une trace de beaucoup d'informations provenant de nombreuses sources.
+
+#### Objectif
+L'objectif de l'assistant, appelé \[IA\]ssistant, était de simplifier et d'améliorer les flux de travail actuels des ingénieurs lors de la création et de la consultation de leurs veilles scientifiques.
+
+Une partie importante du projet consistait à prendre en compte l'impact de l'utilisation de l'IA, à la fois sur les personnes et sur l'environnement :
+- Pour les humains, il s'agissait principalement d'une question d'**éthique** : L'IA ne doit pas remplacer ou restreindre sévèrement les flux de travail. Elle doit être utilisée pour *aider et réduire les tâches répétitives ou fastidieuses, en gardant toujours **l'humain au volant**.*.
+- Pour l'environnement, il s'agissait d'**utilisation** et d'**impact** : L'IA ne doit pas être l'option par défaut pour tout. L'utilisation de l'IA, comme toute autre technologie, doit d'abord être étudiée et comparée à d'autres solutions. Et une fois que l'utilisation de l'IA s'est avérée pertinente, des cas d'utilisation clairs et limités doivent être définis afin de réduire les utilisations inutiles ou excessives, qui entraîneraient des impacts encore plus inévitables. En résumé, *nous devons appliquer les principes et les règles qui sous-tendent le concept de l'**IA frugale**.*.
+
+#### Fonctionnalités et utilisation
+Cet outil permet à l'utilisateur de créer et de gérer des « veilles ». Une « veille » est un élément composé de :
+- Une base de connaissances interne créée à partir d'au moins un document.
+- Une base de connaissance externe créée à partir d'au moins un document ou d'une page web.
+- Un historique de chat.
+
+Une fois qu'une veille a été créée, un LLM ingère les bases de connaissances. Cela permettra à l'utilisateur de discuter avec le LLM, qui agira comme une représentation de la connaissance agrégée de la veille.
+
+***Cela signifie que l'utilisateur pourra discuter avec les connaissances contenues dans la veille !***
+
+Comme l'historique du chat est conservé, l'utilisateur peut également poser des questions complexes qui dépendent des messages précédents de l'utilisateur et du LLM.
+
+Il est également possible de discuter directement avec un document ou une page web sans créer de veille. Dans ce cas, aucun historique n'est conservé.

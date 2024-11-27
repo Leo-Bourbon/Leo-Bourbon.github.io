@@ -1,0 +1,60 @@
+---
+title: "[IA]ssistant de veille"
+languageTag: "en"
+thumbnail_alt: "IAssistant project thumbnail"
+thumbnail: "src/assets/images/projects/iassistant/IAssistant_home.jpg"
+images:
+   - "src/assets/images/projects/iassistant/IAssistant_home.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_Schema_architecture_technique_POC.png"
+   - "src/assets/images/projects/iassistant/IAssistant_chat.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_direct_chat_initialization.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_create_from_files.jpg"
+   - "src/assets/images/projects/iassistant/IAssistant_create_from_urls.jpg"
+short_description: "Web solution made to empower existing workflows of engineers, when needing to keep up to date information and research on various topics. Made with a focus on ethics and frugal AI. Powered by a locally run LLM."
+badges:
+  - label: Nuxt
+    type: primary
+  - label: Typescript
+    type: primary
+  - label: AI
+    type: secondary
+  - label: Ollama
+    type: secondary
+  - label: Docker
+    type: accent
+  - label: Frugal AI
+    type: ghost
+featured: true
+---
+#### Timeframe
+This project was carried out over the course of six months as part of my final year project for my engineering degree.
+
+#### Context
+My role was to take the lead on AI in order to steer efforts towards positive outcomes. In order to do this, I had to both educate our staff on the subject and carry out the necessary technical research. This project was part of the technical side of my mission.
+
+The idea of creating a scientific watch assistant came from workshops I had previously run. My aim was to collect and compile a backlog of possible projects, and the potential benefits and impacts for each of them. Once this was done, I was able to refine each potential idea into a project proposal and rank them according to various criteria, such as complexity or impact footprint.
+
+Once this was done, I presented the results to the directors to select one of the projects to be implemented as part of my final year project. It had to be both short enough to be done before the end of my contract, and have enough technical requirements to be accepted by the school.
+
+In the end, we chose to work in the field of generative AI, with the aim of creating an assistant for engineers who work on several scientific topics at the same time and have to keep track of a lot of information from many sources.
+
+#### Aim
+The aim of the assistant, called \[IA\]ssistant, was to simplify and improve the current workflows of engineers when creating and consulting their scientific watches.
+
+An important part of the project was to consider the impact of using AI, both on people and the environment:
+- For humans, it was mainly about **ethics**: AI should not replace or severely restrict workflows. It should be used to *help and reduce repetitive or burdensome tasks, ultimately always keeping **the human in charge***.
+- For the environment, it was about **usage** and **impact**: AI should not be the default option for everything. The use of AI, like any other technology, must first be researched and compared with other solutions. And once the use of AI is proven to be relevant, clear and limited use cases need to be defined in order to ***reduce unnecessary or excessive use***, which would lead to even more ***unavoidable impacts***. In summary, we need to *apply the principles and rules behind the concept of **frugal AI**.*.
+
+#### Functionality and usage
+This tool allows the user to create and manage "watches". A "watch" is an element composed of :
+- An internal knowledge base created from at least one document.
+- An external knowledge base created from at least one document or web page.
+- A chat history.
+
+Once a watch has been created, an LLM ingests the knowledge bases. This will allow the user to chat with the LLM, which will act as a representation of the aggregated knowledge of the watch.
+
+***This means that the user will be able to chat with the knowledge contained in the watch!***
+
+As a chat history is kept, the user is also able to ask complex questions that depend on previous messages from both the user and the LLM.
+
+It is also possible to chat directly with a document or web page without creating a watch. In this case, no chat history is stored.

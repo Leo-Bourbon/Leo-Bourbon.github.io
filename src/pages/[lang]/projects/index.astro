@@ -1,0 +1,258 @@
+---
+import "@styles/variables.css";
+
+import ThemeSwitcher from "@components/ThemeSwitcher.astro";
+import LangSwitcher from "@components/LangSwitcher.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import ProjectsLayout from "@layouts/ProjectsLayout.astro";
+
+import * as m from "@paraglide/messages.js";
+import { availableLanguageTags, languageTag } from "@paraglide/runtime";
+export function getStaticPaths() {
+  return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+
+import { Image } from "astro:assets";
+
+import { getCollection } from "astro:content";
+const projectEntries = await getCollection("projects", ({ id }) => {
+  return id.startsWith(`${languageTag()}/`);
+});
+
+function stripLanguageTag(id: string) {
+  return id.replace(`${languageTag()}/`, "");
+}
+---
+
+<ProjectsLayout
+  title={m.projects_page_title()}
+  description={m.projects_page_description()}
+>
+  <Fragment slot="head">
+    <!-- <link rel="preload" href={profilePicture.src} as="image" /> -->
+  </Fragment>
+  <div id="top" class="absolute left-0 right-0 top-0 h-0"></div>
+  <!-- Sticky top header -->
+  <header id="header" class="sticky top-1 z-20 h-16">
+    <div
+      class="navbar mx-auto max-w-sm items-stretch justify-evenly rounded-full bg-base-100"
+    >
+      <a class="link" href=`/${languageTag()}`>{m.home_button()}</a>
+      <a class="link" href=`/${languageTag()}#tech-stack-marker`
+        >{m.tech_button()}</a
+      >
+      <a class="link" href=`/${languageTag()}/projects`>{m.projects_button()}</a
+      >
+      <!-- Theme switcher -->
+      <ThemeSwitcher />
+      <!-- Lang switcher -->
+      <LangSwitcher />
+    </div>
+  </header>
+  <main id="main" class="mb-20 p-2">
+    <!-- Projects -->
+    <section
+      id="projects"
+      class="prose relative mb-3 max-w-none text-base xl:ml-2"
+    >
+      <!-- Scroll marker -->
+      <div id="projects-marker" class="absolute left-0 right-0 top-0 h-0"></div>
+      <!-- Title -->
+      <h2
+        id="projects-title"
+        class="mb-4 mt-0 min-h-12 rounded-box bg-base-300 p-2 px-4 text-center"
+      >
+        {m.projects_page_title()}
+      </h2>
+      <!-- Project cards container -->
+      <div
+        id="project-cards"
+        class="mb-0 grid gap-4 rounded-box bg-base-200 p-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+      >
+        {
+          projectEntries.map((entry) => (
+            <div class="project-card-wrapper">
+              <ProjectCard otherClasses="h-full">
+                <Image
+                  slot="image"
+                  class="not-prose h-52 max-h-52 min-h-52 object-cover"
+                  alt={entry.data.thumbnail_alt}
+                  src={entry.data.thumbnail}
+                  quality="mid"
+                  decoding="async"
+                  loading="eager"
+                  widths={[
+                    640, 768, 544, 424, 412,
+                    // entry.data.thumbnail.width / 4,
+                    // entry.data.thumbnail.width / 2,
+                    // entry.data.thumbnail.width,
+                  ]}
+                  sizes={`(width < 640px) ${640}px,
+              (640px <= width < 768px) ${768}px,
+              (768px <= width < 1024px) ${640}px,
+              (1024px <= width < 1280px) ${424}px,
+              (1280px <= width) ${412}px`}
+                />
+                {/* <!-- Title --> */}
+                <h2 slot="title" class="card-title">
+                  {entry.data.title}
+                </h2>
+                {/* <!-- Body --> */}
+                <p slot="description">{entry.data.short_description}</p>
+                {/* <!-- Actions --> */}
+                <Fragment slot="actions">
+                  {entry.data.badges.map(
+                    (badge: { type: string; label: string }) => (
+                      <div class={`badge badge-${badge.type}`}>
+                        {badge.label}
+                      </div>
+                    ),
+                  )}
+                </Fragment>
+                <a
+                  slot="button"
+                  class="btn btn-primary btn-sm ml-auto"
+                  href={`/${languageTag()}/projects/${stripLanguageTag(entry.slug)}`}
+                >
+                  {m.more_info_button()}
+                </a>
+              </ProjectCard>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <!-- General styling -->
+  <style>
+    /* under sm screens */
+    @media screen and (width < 640px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+      }
+
+      /* Very small screens (Ex: Samsung Galaxy S8) */
+      @media screen and (height < 800px) {
+      }
+    }
+
+    /* sm screens */
+    @media screen and (640px <= width < 768px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* md screens */
+    @media screen and (768px <= width < 1024px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      #main {
+        /* max-width: 640px; */
+        @apply max-w-2xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #project-cards {
+      }
+    }
+
+    /* lg screens */
+    @media screen and (1024px <= width < 1280px) {
+      #main {
+        @apply max-w-4xl;
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #project-cards {
+      }
+
+      .project-card-wrapper {
+        /* @apply min-w-48 max-w-md; */
+      }
+
+      /* Animations for lg screens */
+      @media screen and (prefers-reduced-motion: no-preference) {
+        #projects {
+          opacity: 0;
+
+          animation: fade-in 250ms ease-out forwards;
+          animation-delay: 100ms;
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+
+          to {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    /* xl screens and above */
+    @media screen and (1280px <= width) {
+      #scroll-hint {
+        display: none;
+      }
+
+      #main {
+        /* @apply max-w-6xl; */
+
+        display: flex;
+        flex-flow: column nowrap;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #project-cards {
+        /* @apply grid gap-4;
+
+        grid-template-columns: repeat(3, 1fr); */
+      }
+
+      .project-card-wrapper {
+        /* flex-basis: 33%; */
+      }
+    }
+
+    /* Animations */
+    @media screen and (prefers-reduced-motion: no-preference) {
+    }
+    /* ---- */
+
+    :global(.badge-ghost) {
+      /* @apply outline outline-1; */
+      @apply border border-solid border-neutral-content;
+    }
+  </style>
+</ProjectsLayout>

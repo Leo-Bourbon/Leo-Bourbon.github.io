@@ -9,6 +9,7 @@ import mdx from "@astrojs/mdx";
 import devtoolBreakpoints from "astro-devtool-breakpoints";
 import paraglide from "@inlang/paraglide-astro";
 import compressor from "astro-compressor";
+import purgecss from "astro-purgecss";
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,5 +31,17 @@ export default defineConfig({
       outdir: "./src/paraglide", //where your files should be
     }),
     compressor(),
+    purgecss({
+      extractors: [
+        {
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ['astro', 'html']
+        }
+      ]
+    }),
   ],
+  experimental: {
+    contentIntellisense: true,
+  },
 });

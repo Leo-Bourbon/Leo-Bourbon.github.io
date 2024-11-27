@@ -1,0 +1,65 @@
+---
+import LineMdEmailPlus from "src/icons/LineMdEmailPlus.astro";
+import { languageTag } from "../paraglide/runtime";
+
+import graphPaper from "src/assets/images/graph-paper.svg";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+
+const graphPaperSrc = `url(${graphPaper.src})`;
+---
+
+<html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
+  <head>
+    {/* Theme switcher */}
+    <script is:inline>
+      // https://github.com/saadeghi/theme-change
+      // ☝️ This script prevent the FART effect.
+      // If no previous preference is set
+      if (localStorage.getItem("theme") === null) {
+        // Get the preferred user scheme, defaulting to light
+        const preferredScheme = window?.matchMedia?.(
+          "(prefers-color-scheme:dark)",
+        )?.matches
+          ? "dark"
+          : "light";
+
+        document.documentElement.setAttribute("data-theme", preferredScheme);
+      } else
+        document.documentElement.setAttribute(
+          "data-theme",
+          localStorage.getItem("theme"),
+        );
+      // "theme" LocalStorage value is set by the package to remember user preference.
+      // The value is checked and applyed before rendering anything.
+    </script>
+    <script>
+      import { themeChange } from "theme-change";
+      themeChange();
+      // 👆 you could import the CDN directly instead of these two lines
+    </script>
+    {/* Usual head */}
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global define:vars={{ graphPaperSrc }}>
+  html {
+    scrollbar-gutter: stable both-edges;
+    background-image: var(--graphPaperSrc);
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+const { ...attrs } = Astro.props;
+---
+
+<div
+  class="phone-frame animation-enter mockup-phone m-0 lg:sticky lg:top-[72px]"
+  {...attrs}
+>
+  <div class="camera"></div>
+  <div class="display">
+    <!-- phone-1  -->
+    <div class="phone-content">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style is:inline>
+  .phone-content {
+    border-radius: var(--rounded-box, 1rem);
+    --tw-bg-opacity: 1;
+    background-color: var(
+      --fallback-b3,
+      oklch(var(--b3) / var(--tw-bg-opacity))
+    );
+    --tw-text-opacity: 1;
+    color: var(--fallback-bc, oklch(var(--bc) / var(--tw-text-opacity)));
+    box-shadow:
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding-top: 25px;
+  }
+
+  /*@media screen and (prefers-reduced-motion: no-preference) {
+    .animation-enter {*/
+  /*@apply motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom;*/
+  /*animation-duration: var(--phone-enter-duration) !important;
+      animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);*/
+  /*}
+  }*/
+</style>
