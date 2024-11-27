@@ -673,18 +673,19 @@ function stripLanguageTag(id: string) {
                   quality="mid"
                   decoding="async"
                   loading={i <= 1 ? "eager" : "lazy"}
-                />
-                {/* widths={[
+                  widths={[
                     640, 768, 544, 424, 412,
                     // entry.data.thumbnail.width / 4,
                     // entry.data.thumbnail.width / 2,
                     // entry.data.thumbnail.width,
                   ]}
                   sizes={`(width < 640px) ${768}px,
-            (640px <= width < 768px) ${768}px,
-            (768px <= width < 1024px) ${640}px,
-            (1024px <= width < 1280px) ${424}px,
-            (1280px <= width) ${412}px`} */}
+                          (640px <= width < 768px) ${768}px,
+                          (768px <= width < 1024px) ${640}px,
+                          (1024px <= width < 1280px) ${424}px,
+                          (1280px <= width) ${768}px`}
+                />
+                {/*  */}
                 {/* Title */}
                 <h2 slot="title" class="card-title">
                   {entry.data.title}
