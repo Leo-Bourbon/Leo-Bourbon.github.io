@@ -1,12 +1,12 @@
 ---
-import { languageTag } from "../paraglide/runtime";
-import * as m from "../paraglide/messages.js";
+import Error404Layout from "@layouts/Error404Layout.astro";
 import Emoji from "astro-emoji";
-import PortfolioLayout from "@layouts/PortfolioLayout.astro";
+import * as m from "../paraglide/messages.js";
+import { languageTag } from "../paraglide/runtime";
 ---
 
-<PortfolioLayout title="404" description="404">
-  <section class="prose flex flex-col items-center p-6">
+<Error404Layout>
+  <section id="404-section" class="prose flex flex-col items-center p-6">
     <h1 class="text-red-600">404</h1>
     <label class="swap swap-flip text-9xl" for="404-emoji-swap">
       <!-- this hidden checkbox controls the state -->
@@ -21,4 +21,13 @@ import PortfolioLayout from "@layouts/PortfolioLayout.astro";
       {m.home_button()}
     </a>
   </section>
-</PortfolioLayout>
+</Error404Layout>
+
+<style is:inline>
+  #404-section {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 1.5rem;
+  }
+</style>

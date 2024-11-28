@@ -1,0 +1,30 @@
+---
+import graphPaper from "src/assets/images/graph-paper.svg";
+import { languageTag } from "../paraglide/runtime";
+
+const graphPaperSrc = `url(${graphPaper.src})`;
+---
+
+<html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
+  <head>
+    {/* Usual head */}
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="404 error page" />
+    <title>404</title>
+    <slot name="head" />
+  </head>
+  <body class="flex flex-col items-center justify-stretch">
+    <slot />
+  </body>
+</html>
+
+<style is:global define:vars={{ graphPaperSrc }}>
+  html {
+    scrollbar-gutter: stable both-edges;
+    background-image: var(--graphPaperSrc);
+  }
+</style>
