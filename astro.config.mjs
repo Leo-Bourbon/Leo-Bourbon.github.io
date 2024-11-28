@@ -31,15 +31,15 @@ export default defineConfig({
       outdir: "./src/paraglide", //where your files should be
     }),
     compressor(),
-    purgecss({
+    /* purgecss({
       extractors: [
         {
           extractor: (content) =>
             content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-          extensions: ['astro', 'html']
-        }
-      ]
-    }),
+          extensions: ["astro", "html"],
+        },
+      ],
+    }),*/
   ],
   experimental: {
     contentIntellisense: true,
