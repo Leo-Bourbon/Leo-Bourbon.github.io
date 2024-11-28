@@ -100,6 +100,7 @@ function stripLanguageTag(id: string) {
       </header>
       <PhoneFrame id="phone-frame" class="justify-self-start">
         <section
+          id="phone-inside-content"
           class="prose h-full w-full max-w-full bg-base-300 p-4 text-base-content"
         >
           {/* Avatar */}
@@ -884,10 +885,19 @@ function stripLanguageTag(id: string) {
         justify-items: center;
         justify-content: center;
         align-items: first baseline;
+
+        container-type: size;
+        container-name: phone-area;
       }
 
       #phone-frame {
         position: sticky;
+      }
+
+      @container phone-area (min-height: 1700px) {
+        #phone-frame #phone-inside-content {
+          @apply text-xs;
+        }
       }
 
       #tech-stack {
