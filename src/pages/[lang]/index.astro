@@ -125,10 +125,9 @@ function stripLanguageTag(id: string) {
           <h1 class="mb-0 text-center text-base-content">Léo Bourbon</h1>
           {/* Occupation */}
           <h2 class="mb-1 mt-0 text-center">
-            <span class={languageTag() === "en" ? "" : "text-primary"}
-              >{m.occupation_first()}
-            </span>
-            <span class={languageTag() === "en" ? "text-primary" : ""}
+            <span class={languageTag() === "en" ? "" : "border-b-2 border-primary"}
+              >{m.occupation_first()}</span>
+            <span class={languageTag() === "en" ? "border-b-2 border-primary" : ""}
               >{m.occupation_second()}</span
             >.
           </h2>
@@ -655,7 +654,8 @@ function stripLanguageTag(id: string) {
         <span class="mr-auto">{m.projects_tab_title()}</span>
         <a
           class="btn btn-sm border border-solid border-base-content font-semibold"
-          href={`/${languageTag()}/projects`}>{m.see_more_button()}</a
+          href={`/${languageTag()}/projects`}
+          >{m.all_projects_button()}</a
         >
       </h2>
       {/* Project cards container */}
@@ -720,8 +720,9 @@ function stripLanguageTag(id: string) {
                   slot="button"
                   class="btn btn-primary btn-sm ml-auto"
                   href={`/${languageTag()}/projects/${stripLanguageTag(entry.slug)}`}
+                  aria-label={`${m.project_details_button()} on the project : ${entry.data.title}`}
                 >
-                  {m.more_info_button()}
+                  {m.project_details_button()}
                 </a>
               </ProjectCard>
             </div>

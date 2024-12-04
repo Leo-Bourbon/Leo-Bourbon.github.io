@@ -113,8 +113,9 @@ function stripLanguageTag(id: string) {
                   slot="button"
                   class="btn btn-primary btn-sm ml-auto"
                   href={`/${languageTag()}/projects/${stripLanguageTag(entry.slug)}`}
+                  aria-label={`${m.project_details_button()} on the project : ${entry.data.title}`}
                 >
-                  {m.more_info_button()}
+                  {m.project_details_button()}
                 </a>
               </ProjectCard>
             </div>
