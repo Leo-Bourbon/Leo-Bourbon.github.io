@@ -1,27 +1,28 @@
 {
-    "cSpell.words": [
-        "[IA]ssistant",
-        "Alpes",
-        "atmo",
-        "Atmo",
-        "captair",
-        "CAPTAIR",
-        "Dataviz",
-        "Deca",
-        "ensimag",
-        "fhnw",
-        "iassistant",
-        "LISTIC",
-        "Nuxt",
-        "Ollama",
-        "Rhône",
-        "Securimag",
-        "ssistant",
-        "veille"
-    ],
-    "cSpell.language": "en,fr",
-    "cSpell.enabledFileTypes": {
-        "mdx": true
-    },
-    "cSpell.suggestionMenuType": "quickPick"
+	"cSpell.words": [
+		"[IA]ssistant",
+		"Alpes",
+		"atmo",
+		"Atmo",
+		"captair",
+		"CAPTAIR",
+		"Dataviz",
+		"Deca",
+		"ensimag",
+		"fhnw",
+		"iassistant",
+		"LISTIC",
+		"Nuxt",
+		"Ollama",
+		"Rhône",
+		"Securimag",
+		"ssistant",
+		"veille"
+	],
+	"cSpell.language": "en,fr",
+	"cSpell.enabledFileTypes": {
+		"mdx": true,
+		"astro": true
+	},
+	"cSpell.suggestionMenuType": "quickPick"
 }
